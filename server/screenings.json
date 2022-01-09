@@ -1,0 +1,73 @@
+{
+    "screenings": [
+        {
+            "id": "5",
+            "film": {
+                "id": "e0d271bc-ac71-42d3-9f5e-d4cf402bfad5",
+                "title": "Harry Potter",
+                "duration": "1750",
+                "description": "W dniu jedenastych urodzin Harry dowiaduje się, że jest czarodziejem. Czeka na niego szkoła magii pełna tajemnic.",
+                "cast": "Hermiona"
+            },
+            "date": "2021-12-01T23:00:00.000Z",
+            "time": "23:30",
+            "room": {
+                "nr": "2",
+                "capacity": 20
+            },
+            "soldTickets": 35,
+            "availableTickets": -15,
+            "takenSeats": [
+                1,
+                2,
+                17,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                18,
+                19,
+                20,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        {
+            "id": "4",
+            "film": "fb066351-4aa1-4476-8419-85cc36637236",
+            "date": [
+                2021,
+                11,
+                2
+            ],
+            "time": "09:28",
+            "room": "5",
+            "soldTickets": 0,
+            "availableTickets": 20,
+            "takenSeats": []
+        }
+    ]
+}
