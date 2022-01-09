@@ -8,15 +8,15 @@ import axios from 'axios'
 })
 export class ScreeningsComponent implements OnInit {
 
-  film: string = '';
-  time: string = '';
-  room: string = '';
-  soldTickets: number = 0;
-  availableTickets: string = '';
-  date: Date = new Date();
-  takenSeats: string[] = [];
+  // film: string = '';
+  // time: string = '';
+  // room: string = '';
+  // soldTickets: number = 0;
+  // availableTickets: string = '';
+  // date: Date = new Date();
+  // takenSeats: string[] = [];
 
-  screenings: number[] = [];
+  screenings: any[] = [];
   movies: any[] = [];
   rooms: any[] = [];
 
@@ -25,9 +25,9 @@ export class ScreeningsComponent implements OnInit {
     
   }
 
-  fetchData = () => {
+  fetchData = async () => {
     let data = null
-    axios.get("http://localhost:7777/")
+    await axios.get("http://localhost:7777/")
       .then(res => {
         data = res.data;
         console.log(data)
@@ -64,7 +64,7 @@ export class ScreeningsComponent implements OnInit {
     
 
     this.fetchData()
-    console.log(this.screenings["date"])
+    // console.log(this.screenings[0].date)
   }
 
 }
