@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Movie } from 'src/Movie';
+import { movie } from 'src/movie';
 import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
@@ -22,35 +22,35 @@ export class MovieService {
 
 
 
-    getMovies(): Observable<Movie[]> {
-        return this.http.get<Movie[]>(this.url)
+    getMovies(): Observable<movie[]> {
+        return this.http.get<movie[]>(this.url)
             .pipe(
-                catchError(this.handleError<Movie[]>('getOrders', []))
+                catchError(this.handleError<movie[]>('getOrders', []))
             );
 
     }
 
-    addMovie(movie: Movie): Observable<Movie> {
+    addMovie(movie: movie): Observable<movie> {
 
-        return this.http.post<Movie>(this.url, movie, httpOptions)
+        return this.http.post<movie>(this.url, movie, httpOptions)
             .pipe(
-                catchError(this.handleError<Movie>('addMovie'))
+                catchError(this.handleError<movie>('addMovie'))
             )
     }
 
-    deleteMovie(movie: Movie): Observable<Movie> {
+    deleteMovie(movie: movie): Observable<movie> {
         const url = `${this.url}/${movie.id}`;
 
-        return this.http.delete<Movie>(url, httpOptions)
+        return this.http.delete<movie>(url, httpOptions)
             .pipe(
-                catchError(this.handleError<Movie>('deleteMovie'))
+                catchError(this.handleError<movie>('deleteMovie'))
             )
     }
 
-    updateMovie(movie: Movie): Observable<Movie> {
-        return this.http.put<Movie>(this.url, movie, httpOptions)
+    updateMovie(movie: movie): Observable<movie> {
+        return this.http.put<movie>(this.url, movie, httpOptions)
             .pipe(
-                catchError(this.handleError<Movie>('addMovie'))
+                catchError(this.handleError<movie>('addMovie'))
             )
     }
 

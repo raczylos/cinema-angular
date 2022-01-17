@@ -8,7 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MoviesComponent } from './movies/movies.component';
-import { MainComponent } from './main/main.component'
+import { MainComponent } from './main/main.component';
+import { RoomsComponent } from './rooms/rooms.component'
 
 
 
@@ -19,6 +20,7 @@ import { MainComponent } from './main/main.component'
         ScreeningsComponent,
         MoviesComponent,
         MainComponent,
+        RoomsComponent,
         
     ],
     imports: [

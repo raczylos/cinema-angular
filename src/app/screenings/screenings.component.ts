@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios'
 
+import { ScreeningService } from '../screening.service';
+
 @Component({
     selector: 'app-screenings',
     templateUrl: './screenings.component.html',
@@ -30,15 +32,8 @@ export class ScreeningsComponent implements OnInit {
 
 
     ngOnInit(): void {
-        // this.name = 'Joanna';
-        // this.surname = 'Krupa';
-        // this.dateOfBirth = new Date('2000-03-18');
-        // this.interests = ['tennis', 'programming', 'photography'];
+        
 
-
-
-
-        // console.log(this.screenings[0].date)
     }
 
 }
