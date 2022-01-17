@@ -1,0 +1,18 @@
+mat-nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.nav-list {
+    display: flex;
+    justify-content: center;
+    color: rgb(87, 252, 183);
+}
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+    display: block;
+    height: 48px;
+    -webkit-tap-highlight-color: transparent;
+    width: auto;
+    padding: 0;
+}
