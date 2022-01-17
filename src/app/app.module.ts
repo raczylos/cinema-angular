@@ -9,7 +9,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MoviesComponent } from './movies/movies.component';
 import { MainComponent } from './main/main.component';
-import { RoomsComponent } from './rooms/rooms.component'
+import { RoomsComponent } from './rooms/rooms.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import {MatListModule} from '@angular/material/list';
+
 
 
 
@@ -26,7 +30,9 @@ import { RoomsComponent } from './rooms/rooms.component'
     imports: [
         BrowserModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatListModule
     ],
     providers: [],
     bootstrap: [AppComponent]
