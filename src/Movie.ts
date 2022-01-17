@@ -1,6 +1,7 @@
 export interface movie {
     id: number;
-    name: string;
+    title: string;
     duration: string;
-
+    description: string;
+    cast: string;
 }

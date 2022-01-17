@@ -22,9 +22,8 @@ export class ScreeningsComponent implements OnInit {
     movies: any[] = [];
     rooms: any[] = [];
 
-    constructor() {
-
-
+    constructor(private screeningService: ScreeningService) {
+        
     }
 
 

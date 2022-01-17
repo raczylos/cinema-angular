@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { movie } from 'src/movie';
+import { movie } from 'src/Movie';
 import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
@@ -16,7 +16,7 @@ const httpOptions = {
 
 export class MovieService {
 
-    private url = 'http://localhost:5000/movies';
+    private url = 'http://localhost:7777/movies/';
 
     constructor(private http: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class MovieService {
     getMovies(): Observable<movie[]> {
         return this.http.get<movie[]>(this.url)
             .pipe(
-                catchError(this.handleError<movie[]>('getOrders', []))
+                catchError(this.handleError<movie[]>('getMovies', []))
             );
 
     }
