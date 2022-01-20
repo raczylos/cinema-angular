@@ -1,9 +1,18 @@
-<div>
+<div class="movies-list">
     <mat-list>
-        <mat-list-item *ngFor="let movie of movies">
-            <a mat-list-item [routerLink]="['/movies', movie.id]">{{movie.title}}</a> 
-        </mat-list-item>
+        <app-movie-item 
+        *ngFor="let movie of movies"
+        [movie]="movie"
+        (onDeleteMovie)="deleteMovie(movie)"
+        ></app-movie-item>
+        <!-- <mat-list-item *ngFor="let movie of movies" >
+            <div class="movie-item">
+                <a mat-list-item [routerLink]="['/movies', movie.id]">{{movie.title}}  </a> 
+                <fa-icon  (click)="onDelete(movie)" [ngStyle]="{'color': 'red'}" [icon] = "faTimes"></fa-icon> 
+            </div>
+        </mat-list-item> -->
     </mat-list>
+    
 </div>
 <div>
     <h1>Add a new movie!</h1>

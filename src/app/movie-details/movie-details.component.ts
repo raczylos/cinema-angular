@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ModuleWithProviders , EventEmitter} from '@angular/core';
 import { MovieService } from '../movie.service';
 import { movie } from 'src/Movie';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-movie-details',
@@ -12,6 +13,7 @@ import { Location } from '@angular/common';
 })
 export class MovieDetailsComponent implements OnInit {
     movie: movie | undefined
+    faTimes = faTimes;
 
   constructor(
       private route: ActivatedRoute,
@@ -32,4 +34,8 @@ export class MovieDetailsComponent implements OnInit {
     })
   }
 
+  // onDelete(){
+  //   console.log(this.movie);
+  // }
+  
 }

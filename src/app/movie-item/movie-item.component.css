@@ -1,7 +1,3 @@
-.movies-list {
-    display: flex;
-    margin-right: 20%;
-}
 .movie-item {
     display: flex;
     flex-direction: row;
