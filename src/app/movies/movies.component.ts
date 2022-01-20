@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
 import { movie } from 'src/Movie';
+import { FormBuilder } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-movies',
@@ -10,7 +12,18 @@ import { movie } from 'src/Movie';
 export class MoviesComponent implements OnInit {
     movies: movie[] = []
 
-  constructor(private movieService: MovieService) { }
+    addMovieForm = this.formBuilder.group({
+        id: '',
+        title: '',
+        duration: '',
+        description: '',
+        cast: ''
+    })
+
+  constructor(
+      private movieService: MovieService,
+      private formBuilder: FormBuilder
+    ) { }
 
   ngOnInit(): void {
       this.getMovies()
@@ -23,6 +36,12 @@ export class MoviesComponent implements OnInit {
               console.log(this.movies)
             }
         )
+  }
+
+  onSubmit(): void {
+    this.movieService.addMovie(this.addMovieForm.value).subscribe(movie => {
+        this.movies.push(movie)
+    })
   }
 
 }

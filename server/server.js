@@ -2,6 +2,7 @@ import fs from 'fs';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import crypto from 'crypto'
 
 const app = express();
 
@@ -36,25 +37,71 @@ app.get('/movies', (req, res) => {
 })
 
 app.post('/movies', (req, res) => {
-    let movies = JSON.stringify({movies: req.body.movies})
-
     let request = `POST: /movies\n`
-    console.log(request)
+    let movie = req.body
+    let randId = crypto.randomUUID()
+    movie.id = randId
+    let movies = JSON.parse(fs.readFileSync('./movies.json'))
+    movies['movies'].push(movie)
+    movies = JSON.stringify(movies)
+
     fs.appendFile('requests.txt', request, function (err) {
         if (err) throw err;
         console.log('Saved!');
       });
     console.log(movies)
+
     fs.writeFile('./movies.json', movies, err => {
         if(err) {
             console.error(err)
             res.status(500).send("Failed to write to file")
             return
         }
-        res.status(201).send(req.body)
+        res.status(201).send(movie)
         console.log("Successfully updated movies.json")
     })
     
+})
+
+// STARA WERSJA DODAWANIA FILMOW UWAGA UWAGA
+// app.post('/movies', (req, res) => {
+//     let randId = crypto.randomUUID()
+//     let movies = JSON.stringify({movies: req.body.movies})
+
+//     let request = `POST: /movies\n`
+//     console.log(request)
+//     fs.appendFile('requests.txt', request, function (err) {
+//         if (err) throw err;
+//         console.log('Saved!');
+//       });
+//     console.log(movies)
+//     fs.writeFile('./movies.json', movies, err => {
+//         if(err) {
+//             console.error(err)
+//             res.status(500).send("Failed to write to file")
+//             return
+//         }
+//         res.status(201).send(req.body)
+//         console.log("Successfully updated movies.json")
+//     })
+    
+// })
+
+
+app.get('/movies/:id', (req, res) => {
+    let movieId = req.params.id
+    let request = `GET: /movies/${movieId}\n`
+    console.log(request)
+    fs.appendFile('requests.txt', request, function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+      });
+    let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))
+    let movie = moviesJson.movies.find( (x) => {
+        return x.id === movieId
+    })
+
+    res.status(201).send(movie)
 })
 
 app.put('/movies', (req, res) => {

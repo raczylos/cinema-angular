@@ -11,8 +11,14 @@ import { MoviesComponent } from './movies/movies.component';
 import { MainComponent } from './main/main.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
+
 
 
 
@@ -25,6 +31,7 @@ import {MatListModule} from '@angular/material/list';
         MoviesComponent,
         MainComponent,
         RoomsComponent,
+        MovieDetailsComponent,
         
     ],
     imports: [
@@ -32,7 +39,12 @@ import {MatListModule} from '@angular/material/list';
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MatListModule
+        ReactiveFormsModule,
+        FormsModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

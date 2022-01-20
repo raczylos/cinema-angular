@@ -1,6 +1,41 @@
-<mat-list>
-    <mat-list-item *ngFor="let movie of movies">
-        {{movie.title}}
-    </mat-list-item>
-</mat-list>
+<div>
+    <mat-list>
+        <mat-list-item *ngFor="let movie of movies">
+            <a mat-list-item [routerLink]="['/movies', movie.id]">{{movie.title}}</a> 
+        </mat-list-item>
+    </mat-list>
+</div>
+<div>
+    <h1>Add a new movie!</h1>
+    <form [formGroup]="addMovieForm" (ngSubmit)="onSubmit()">
+        <div>
+            <mat-form-field>
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Duration</mat-label>
+                <input matInput formControlName="duration">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Cast</mat-label>
+                <input matInput formControlName="cast">
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button>Submit</button>
+        </div>
+    </form>
+</div>
+
 

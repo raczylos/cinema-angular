@@ -16,7 +16,7 @@ const httpOptions = {
 
 export class MovieService {
 
-    private url = 'http://localhost:7777/movies/';
+    private url = 'http://localhost:7777/movies';
 
     constructor(private http: HttpClient) { }
 
@@ -45,6 +45,14 @@ export class MovieService {
             .pipe(
                 catchError(this.handleError<movie>('deleteMovie'))
             )
+    }
+
+    getMovie(id: string): Observable<movie> {
+        const url = `${this.url}/${id}`
+        return this.http.get<movie>(url, httpOptions)
+        .pipe(
+            catchError(this.handleError<movie>('getMovie'))
+        )
     }
 
     updateMovie(movie: movie): Observable<movie> {
