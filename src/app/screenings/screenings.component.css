@@ -1,0 +1,8 @@
+.screening-list { 
+    display: flex;
+    flex-direction: column;
+}
+.screening-item {
+    cursor: pointer;
+    margin-top: 1rem;
+}

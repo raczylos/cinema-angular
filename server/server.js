@@ -181,6 +181,56 @@ app.delete('/movies/:id', (req, res) => {
     })
 })
 
+app.get('/screenings', (req, res) => {
+    let request = "GET: /screenings\n"
+    console.log(request)
+    fs.appendFile('requests.txt', request, function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
+    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
+    let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))['movies']
+    let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
+    for(let screening of screeningsJson) { 
+        let movieId = screening.film
+        let movie = moviesJson.find(x => x.id === movieId)
+        screening.film = movie
+
+        let roomId = screening.room
+        let room = roomsJson.find(x => x.nr === roomId)
+        screening.room = room
+
+        
+    }
+    screeningsJson = JSON.stringify(screeningsJson)
+    res.status(201).send(screeningsJson)
+})
+
+app.get('/screenings/:id', (req, res) => {
+    const id = req.params.id
+    let request = `GET: /screenings/${id}\n`
+    console.log(request)
+    fs.appendFile('requests.txt', request, function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
+
+    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
+    let screening = screeningsJson.find(x => x.id === id)
+    let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))['movies']
+    let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
+
+    let movieId = screening.film
+    let movie = moviesJson.find(x => x.id === movieId)
+    screening.film = movie
+    let roomId = screening.room
+    let room = roomsJson.find(x => x.nr === roomId)
+    screening.room = room
+
+    screening = JSON.stringify(screening)
+    res.status(201).send(screening)
+})
+
 app.post('/screenings', (req, res) => {
     let screening = req.body.screening
     let request = `POST: /screenings\n`

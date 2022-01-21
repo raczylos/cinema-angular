@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
 import { movie } from 'src/Movie';
 import { FormBuilder } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

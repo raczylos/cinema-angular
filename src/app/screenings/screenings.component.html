@@ -1,2 +1,12 @@
-<p>Screenings list!</p>
-
+<h1>screenings list</h1>
+<div class="screenings-list">
+    <mat-card class="screening-item" *ngFor="let screening of screenings" (click)="navigate(screening)">
+        <mat-card-content>
+            <mat-card-title>{{screening.film.title}}</mat-card-title>
+            <mat-card-subtitle>
+                <span>{{screening.date.toLocaleDateString()}}</span>
+                <span> {{screening.time}}</span>
+            </mat-card-subtitle>
+        </mat-card-content>
+    </mat-card>
+</div>

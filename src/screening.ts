@@ -1,12 +1,14 @@
 import { Time } from "@angular/common";
+import { movie } from "./Movie";
+import { room } from "./room";
 
 export interface screening {
     id: number;
-    film: string;
-    date: Date;
+    film: movie;
+    date: Date | any;
     time: Time;
-    room: string;
+    room: room;
     soldTickets: number;
     availableTickets: number;
-    takenSeats: Object; //albo Array<> ?
+    takenSeats: string[]; //albo Array<> ?
 }

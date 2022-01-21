@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios'
-
+import { screening } from 'src/screening'
+import { Router } from '@angular/router';
 import { ScreeningService } from '../screening.service';
 
 @Component({
@@ -10,29 +10,33 @@ import { ScreeningService } from '../screening.service';
 })
 export class ScreeningsComponent implements OnInit {
 
-    // film: string = '';
-    // time: string = '';
-    // room: string = '';
-    // soldTickets: number = 0;
-    // availableTickets: string = '';
-    // date: Date = new Date();
-    // takenSeats: string[] = [];
+    screenings: screening[] = [];
 
-    screenings: any[] = [];
-    movies: any[] = [];
-    rooms: any[] = [];
+    constructor(
+        private screeningService: ScreeningService,
+        private router: Router,
+    ) { }
 
-    constructor(private screeningService: ScreeningService) {
-        
+    navigate(screening: screening): void {
+        console.log(screening.id)
+        this.router.navigate(['/screenings', screening.id])
     }
 
-
-
-
-
     ngOnInit(): void {
-        
+        this.getScreenings()
+    }
 
+    getScreenings(): void {
+        this.screeningService.getScreenings().subscribe(screenings => {
+            console.log(screenings)
+            for(let screening of screenings) {
+                let dates: any = screening.date
+                let date: Date = new Date(dates[0], dates[1], dates[2])
+                screening.date = date
+            }
+            this.screenings = screenings
+            
+        })
     }
 
 }

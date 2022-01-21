@@ -1,34 +1,6 @@
 {
     "screenings": [
         {
-            "id": "4",
-            "film": {
-                "id": "fb066351-4aa1-4476-8419-85cc36637236",
-                "title": "Shrek",
-                "duration": " 125",
-                "description": " Shrek jest zielony i kocha Fionę.",
-                "cast": " "
-            },
-            "date": "2021-12-13T23:00:00.000Z",
-            "time": "18:12",
-            "room": {
-                "nr": "3",
-                "capacity": 20
-            },
-            "soldTickets": 8,
-            "availableTickets": 12,
-            "takenSeats": [
-                9,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7
-            ]
-        },
-        {
             "id": "5cbb3433-9368-46f5-9373-a3c49bd08b9f",
             "film": "485fc3c4-87a5-4d89-8da8-f0ea5a1dd4cf",
             "date": [
@@ -38,34 +10,6 @@
             ],
             "time": "10:19",
             "room": "4",
-            "soldTickets": 0,
-            "availableTickets": 20,
-            "takenSeats": []
-        },
-        {
-            "id": "a4c177f5-61fa-4fbe-8608-fc66b9026772",
-            "film": "fb066351-4aa1-4476-8419-85cc36637236",
-            "date": [
-                2021,
-                11,
-                9
-            ],
-            "time": "15:20",
-            "room": "3",
-            "soldTickets": 0,
-            "availableTickets": 20,
-            "takenSeats": []
-        },
-        {
-            "id": "91563896-bbc2-4cfa-892f-7ec50cd43c87",
-            "film": "fb066351-4aa1-4476-8419-85cc36637236",
-            "date": [
-                2021,
-                11,
-                10
-            ],
-            "time": "15:20",
-            "room": "3",
             "soldTickets": 0,
             "availableTickets": 20,
             "takenSeats": []
