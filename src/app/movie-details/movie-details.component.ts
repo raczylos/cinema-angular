@@ -13,6 +13,15 @@ import { Location } from '@angular/common';
 export class MovieDetailsComponent implements OnInit {
     movie: movie | undefined
 
+
+    updateMovieForm = this.formBuilder.group({
+      id: '',
+      title: '',
+      duration: '',
+      description: '',
+      cast: ''
+    })
+
   constructor(
       private route: ActivatedRoute,
       private location: Location,
@@ -30,6 +39,14 @@ export class MovieDetailsComponent implements OnInit {
         this.movie = movie
         console.log(movie)
     })
+  }
+
+  onSubmit(): void {
+    const movieId = String(this.route.snapshot.paramMap.get('id'))
+    this.movieService.updateMovie(this.updateMovieForm.value, movieId).subscribe(movie => {
+      this.movie = movie
+    })
+    
   }
 
 }

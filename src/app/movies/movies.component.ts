@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
 import { movie } from 'src/Movie';
 import { FormBuilder } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-movies',
@@ -10,38 +10,42 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-    movies: movie[] = []
+  movies: movie[] = []
 
-    addMovieForm = this.formBuilder.group({
-        id: '',
-        title: '',
-        duration: '',
-        description: '',
-        cast: ''
-    })
+  addMovieForm = this.formBuilder.group({
+    id: '',
+    title: '',
+    duration: '',
+    description: '',
+    cast: ''
+  })
+
+  
 
   constructor(
-      private movieService: MovieService,
-      private formBuilder: FormBuilder
-    ) { }
+    private movieService: MovieService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-      this.getMovies()
+    this.getMovies()
   }
 
   getMovies(): void {
-      this.movieService.getMovies().subscribe(
-          movies => {
-              this.movies = movies
-              console.log(this.movies)
-            }
-        )
+    this.movieService.getMovies().subscribe(
+      movies => {
+        this.movies = movies
+        console.log(this.movies)
+      }
+    )
   }
+
 
   onSubmit(): void {
     this.movieService.addMovie(this.addMovieForm.value).subscribe(movie => {
-        this.movies.push(movie)
+      this.movies.push(movie)
     })
+    
   }
 
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { movie } from 'src/Movie';
 import { catchError } from 'rxjs/operators';
+import { movie } from 'src/Movie';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -50,15 +50,17 @@ export class MovieService {
     getMovie(id: string): Observable<movie> {
         const url = `${this.url}/${id}`
         return this.http.get<movie>(url, httpOptions)
-        .pipe(
-            catchError(this.handleError<movie>('getMovie'))
-        )
+            .pipe(
+                catchError(this.handleError<movie>('getMovie'))
+            )
     }
 
-    updateMovie(movie: movie): Observable<movie> {
-        return this.http.put<movie>(this.url, movie, httpOptions)
+    updateMovie(movie: movie, id: string): Observable<movie> {
+        const url = `${this.url}/${id}`;
+        movie.id = id
+        return this.http.put<movie>(url, movie, httpOptions)
             .pipe(
-                catchError(this.handleError<movie>('addMovie'))
+                catchError(this.handleError<movie>('updateMovie'))
             )
     }
 
