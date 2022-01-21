@@ -1,5 +1,7 @@
 <div class="movie-item">
     <a mat-list-item [routerLink]="['/movies', movie.id]">{{movie.title}} </a> 
+    <i class="material-icons" (click)="onEditClicked()"   >edit</i>
     <fa-icon  (click)="onDelete(movie)" [ngStyle]="{'color': 'red'}" [icon] = "faTimes"></fa-icon> 
+    
 </div>
 

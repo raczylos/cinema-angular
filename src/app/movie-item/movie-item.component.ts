@@ -11,6 +11,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 export class MovieItemComponent implements OnInit {
   @Input()movie!: movie;
   @Output() onDeleteMovie: EventEmitter<movie> = new EventEmitter();
+  @Output() editClicked: EventEmitter<movie> = new EventEmitter();
   faTimes = faTimes;
 
   constructor() { }
@@ -22,4 +23,7 @@ export class MovieItemComponent implements OnInit {
     this.onDeleteMovie.emit(movie);
   }
 
+  onEditClicked(){
+    this.editClicked.emit();
+  }
 }

@@ -4,6 +4,8 @@ import { movie } from 'src/Movie';
 import { FormBuilder } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { EditMovieComponent } from '../edit-movie/edit-movie.component';
 
 @Component({
   selector: 'app-movies',
@@ -24,7 +26,8 @@ export class MoviesComponent implements OnInit {
 
   constructor(
       private movieService: MovieService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -48,6 +51,22 @@ export class MoviesComponent implements OnInit {
 
   deleteMovie(movie: movie){
     this.movieService.deleteMovie(movie).subscribe(() => (this.movies = this.movies.filter((t) => t.id !== movie.id)));
+  }
+  
+  editMovie(movie: movie){
+    const index = this.movies.indexOf(movie);
+
+    let dialogRef = this.dialog.open(EditMovieComponent, {
+      width: '700px',
+      data: movie
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.movieService.updateMovie(index, result)
+      }
+    })
+    
   }
 
 }

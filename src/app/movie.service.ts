@@ -55,14 +55,12 @@ export class MovieService {
         )
     }
 
-    updateMovie(movie: movie): Observable<movie> {
+    updateMovie(index: number, movie: movie): Observable<movie> {
         return this.http.put<movie>(this.url, movie, httpOptions)
             .pipe(
                 catchError(this.handleError<movie>('addMovie'))
             )
     }
-
-
 
 
     private handleError<T>(operation = 'operation', result?: T) {

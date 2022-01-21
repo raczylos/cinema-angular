@@ -20,6 +20,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MovieItemComponent } from './movie-item/movie-item.component';
+import { EditMovieComponent } from './edit-movie/edit-movie.component';
+
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import { MovieItemComponent } from './movie-item/movie-item.component';
         RoomsComponent,
         MovieDetailsComponent,
         MovieItemComponent,
+        EditMovieComponent,
         
     ],
     imports: [
@@ -45,6 +49,7 @@ import { MovieItemComponent } from './movie-item/movie-item.component';
         MatInputModule,
         MatButtonModule,
         FontAwesomeModule,
+        MatDialogModule
     ],
     providers: [],
     bootstrap: [AppComponent]

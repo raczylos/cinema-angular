@@ -4,6 +4,7 @@
         *ngFor="let movie of movies"
         [movie]="movie"
         (onDeleteMovie)="deleteMovie(movie)"
+        (editClicked)="editMovie(movie)"
         ></app-movie-item>
         <!-- <mat-list-item *ngFor="let movie of movies" >
             <div class="movie-item">

@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/material/prebuilt-themes/purple-green.css";
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+/* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+
 html, body { height: 100%; }
 body { 
     margin: 0;
@@ -7,3 +10,16 @@ body {
     background-color: rgb(35, 104, 95);
 }
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.alt-gradient-button {
+    border: none;
+    background: linear-gradient(to right, rgb(12, 124, 77), rgb(17, 163, 112), rgb(2, 107, 70));
+    color: white;
+    font-weight: 600;
+    opacity: 0.92;
+
+}

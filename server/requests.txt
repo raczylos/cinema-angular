@@ -294,3 +294,14 @@ DELETE: /movies/34cf61e2-6ef1-4823-a90b-667b6a884718
 POST: /movies
 GET: /movies/6ba8eeb4-01e9-4a48-a3b0-88a6b7d52d7a
 DELETE: /movies/6ba8eeb4-01e9-4a48-a3b0-88a6b7d52d7a
+DELETE: /movies/8d81f94a-b4d7-44fe-89f2-e6366959e50a
+GET: /movies/c5aad8bc-e3dc-4198-ac5e-d69de1a9620c
+DELETE: /movies/fb066351-4aa1-4476-8419-85cc36637236
+GET: /movies/485fc3c4-87a5-4d89-8da8-f0ea5a1dd4cf
+GET: /movies/82e44c63-27c6-448e-8113-cbd7502fc408
+POST: /movies
+DELETE: /movies/b362188e-eaa6-47dd-b5df-de8426e05787
+POST: /movies
+GET: /movies/b2bd9882-0b78-49d4-949f-999b88a2c4fa
+DELETE: /movies/b2bd9882-0b78-49d4-949f-999b88a2c4fa
+DELETE: /movies/27d39465-e536-43f3-8397-a23ac24e3a15
