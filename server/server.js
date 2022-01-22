@@ -229,7 +229,8 @@ app.post('/screenings', (req, res) => {
 
     date = date.split('-').map(Number)  
     screening.date = date
- 
+    // screening.room = room.id
+    // screening.availableTickets = room.capacity
     screeningsJson.push(screening)
     screeningsJson = JSON.stringify({screenings: screeningsJson})
     fs.writeFile('./screenings.json', screeningsJson, err => {

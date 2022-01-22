@@ -22,7 +22,7 @@ export class ScreeningsComponent implements OnInit {
         time: '',
         room: '',
         soldTickets: 0,
-        availableTickets: 30,
+        availableTickets: '',
         takenSeats: ''
     })
 
@@ -30,7 +30,9 @@ export class ScreeningsComponent implements OnInit {
         private screeningService: ScreeningService,
         private router: Router,
         private formBuilder: FormBuilder
-    ) { }
+    ) {
+
+     }
 
 
 
@@ -56,7 +58,7 @@ export class ScreeningsComponent implements OnInit {
         })
     }
 
-    
+
 
     onSubmit(): void {
         this.screeningService.addScreening(this.addScreeningForm.value).subscribe(screening => {

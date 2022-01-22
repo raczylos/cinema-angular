@@ -19,7 +19,16 @@
                 <mat-option *ngFor="let screening of screenings" [value]="screening.film.id">
                     {{screening.film.title}}
                 </mat-option>
-                
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Select film</mat-label>
+            <mat-select  formControlName="room" >
+                <mat-option *ngFor="let room of rooms" [value]="room.id">
+                    {{room.id}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
     </div>

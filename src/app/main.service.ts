@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { movie } from 'src/Movie';
+import { movie } from 'src/movie';
 import { screening } from 'src/screening';
 import { room } from 'src/room';
 import { Subject } from 'rxjs';
@@ -13,7 +13,6 @@ export class MainService {
     private moviesSource: BehaviorSubject<movie[]> = new BehaviorSubject<movie[]>([])
     private screeningsSource: BehaviorSubject<screening[]> = new BehaviorSubject<screening[]>([])
     private roomsSource: BehaviorSubject<room[]> = new BehaviorSubject<room[]>([])
-
     private updatedMovieSource: Subject<movie> = new Subject<movie>()
     private addedMovieSource: Subject<movie> = new Subject<movie>()
     private deletedMovieSource: Subject<movie> = new Subject<movie>()
