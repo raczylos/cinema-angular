@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
 import { MainService } from '../main.service';
-import { movie } from 'src/movie';
 import { FormBuilder } from '@angular/forms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { movie } from 'src/movie';
 
 @Component({
 	selector: 'app-movies',

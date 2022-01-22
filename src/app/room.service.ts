@@ -9,13 +9,13 @@ import { room } from 'src/room';
 })
 export class RoomService {
 
-  private url = "http://localhost:5000/rooms"
+  private url = "http://localhost:7777/rooms"
   constructor(private http: HttpClient) { }
 
-  getrooms(): Observable<room[]> {
+  getRooms(): Observable<room[]> {
     return this.http.get<room[]>(this.url)
       .pipe(
-        catchError(this.handleError<room[]>('getOrders', []))
+        catchError(this.handleError<room[]>('getRooms', []))
       );
 
   }

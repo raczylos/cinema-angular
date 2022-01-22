@@ -34,12 +34,21 @@ export class MainComponent implements OnInit {
         this.getScreenings()
         this.addMovie()
         this.deleteMovie()
+        this.getRooms()
+        this.addScreening()
     }
 
     getMovies(): void {
         this.movieService.getMovies().subscribe(movies => {
             this.mainService.loadMovies(movies)
             console.log(movies)
+        })
+    }
+
+    getRooms(): void {
+        this.roomService.getRooms().subscribe(rooms => {
+            this.mainService.loadRooms(rooms)
+            console.log(rooms)
         })
     }
 
@@ -54,6 +63,15 @@ export class MainComponent implements OnInit {
         this.screeningService.getScreenings().subscribe(screenings => {
             this.mainService.loadScreenings(screenings)
             console.log(screenings)
+        })
+    }
+
+    addScreening(): void {
+        this.mainService.addedScreening$.subscribe(screening => {
+            console.log("dodaje screening" + screening)
+            this.screeningService.addScreening(screening).subscribe(() => {
+                this.getScreenings()
+            })
         })
     }
 

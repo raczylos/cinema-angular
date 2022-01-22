@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { movie } from 'src/Movie';
+import { movie } from 'src/movie';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
