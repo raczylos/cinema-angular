@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MainService } from '../main.service';
 import { room } from 'src/room';
 import { movie } from 'src/movie';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-screening-details',
@@ -12,25 +13,47 @@ import { movie } from 'src/movie';
   styleUrls: ['./screening-details.component.css']
 })
 export class ScreeningDetailsComponent implements OnInit {
-    screening: screening | undefined
-    movies: movie[] = []
-    rooms: room[] = [] 
+  screening: screening | undefined
+  movies: movie[] = []
+  rooms: room[] = []
+
+  updateScreeningForm = this.formBuilder.group({
+    id: '',
+    film: '',
+    date: '',
+    time: '',
+    room: '',
+    soldTickets: 0,
+    availableTickets: '',
+    takenSeats: ''
+  })
 
   constructor(
-      private screeningService: ScreeningService, 
-      private mainService: MainService,
-      private route: ActivatedRoute,
+    private screeningService: ScreeningService,
+    private mainService: MainService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-      this.getScreening()
-      this.mainService.movies$.subscribe(movies => {
-          this.movies = movies
-      })
+    this.mainService.updatedScreening$.subscribe(screening => {
 
-      this.mainService.rooms$.subscribe(rooms => {
-          this.rooms = rooms
-      })
+      if (!(screening.date instanceof Date)) {
+        let dates: any = screening.date
+        let date: Date = new Date(dates[0], dates[1], dates[2])
+        screening.date = date
+      }
+      this.screening = screening
+
+    })
+    this.getScreening()
+    this.mainService.movies$.subscribe(movies => {
+      this.movies = movies
+    })
+
+    this.mainService.rooms$.subscribe(rooms => {
+      this.rooms = rooms
+    })
   }
 
   getScreening(): void {
@@ -44,6 +67,13 @@ export class ScreeningDetailsComponent implements OnInit {
     //     this.screening = screening
     // })
     this.screening = this.mainService.getScreening(screeningId)
+  }
+
+  onSubmit(): void {
+    const screeningId = String(this.route.snapshot.paramMap.get('id'))
+
+    this.mainService.updateScreening(this.updateScreeningForm.value, screeningId)
+    console.log(this.updateScreeningForm.value)
   }
 
 }

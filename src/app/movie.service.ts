@@ -58,7 +58,7 @@ export class MovieService {
     }
 
     updateMovie(movie: movie, id: string): Observable<movie> {
-        const url = `${this.url}/${id}`;
+        const url = `${this.url}/${id}`
         movie.id = id
         return this.http.put<movie>(url, movie, httpOptions)
             .pipe(

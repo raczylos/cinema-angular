@@ -47,9 +47,11 @@ export class ScreeningService {
 			.pipe(catchError(this.handleError<screening>('deleteScreening')));
 	}
 
-	updateScreening(screening: screening): Observable<screening> {
+	updateScreening(screening: screening, id: string): Observable<screening> {
+		const url = `${this.url}/${id}`
+		screening.id = id
 		return this.http
-			.put<screening>(this.url, screening, httpOptions)
+			.put<screening>(url, screening, httpOptions)
 			.pipe(catchError(this.handleError<screening>('updateScreening')));
 	}
 
