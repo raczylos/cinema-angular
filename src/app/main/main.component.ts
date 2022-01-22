@@ -8,27 +8,27 @@ import { ScreeningService } from '../screening.service';
 import { MainService } from '../main.service';
 
 @Component({
-	selector: 'app-main',
-	templateUrl: './main.component.html',
-	styleUrls: ['./main.component.css'],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-	private movies: movie[] = [];
-	private screenings: screening[] = [];
-	private rooms: room[] = [];
+    private movies: movie[] = [];
+    private screenings: screening[] = [];
+    private rooms: room[] = [];
 
-	constructor(
-		private mainService: MainService,
-		private movieService: MovieService,
-		private screeningService: ScreeningService,
-		private roomService: RoomService
-	) {
-		// subscribe 
-        
-        
-	}
-    
-	ngOnInit(): void {
+    constructor(
+        private mainService: MainService,
+        private movieService: MovieService,
+        private screeningService: ScreeningService,
+        private roomService: RoomService
+    ) {
+        // subscribe 
+
+
+    }
+
+    ngOnInit(): void {
         this.updateMovie()
         this.getMovies()
         this.getScreenings()
@@ -37,6 +37,7 @@ export class MainComponent implements OnInit {
         this.getRooms()
         this.addScreening()
         this.updateScreening()
+        this.buyTickets()
     }
 
     getMovies(): void {
@@ -82,6 +83,15 @@ export class MainComponent implements OnInit {
         })
     }
 
+    buyTickets(): void {
+        this.mainService.buyTickets$.subscribe(screening => {
+            this.screeningService.buyTickets(screening, screening.id).subscribe(screning => {
+                this.getScreenings()
+            })
+        })
+
+    }
+
     deleteMovie(): void {
         this.mainService.deletedMovie$.subscribe(movie => {
             this.movieService.deleteMovie(movie).subscribe(() => {
@@ -90,9 +100,9 @@ export class MainComponent implements OnInit {
             })
         })
     }
-    
+
     updateScreening(): void {
-        this.mainService.updatedScreening$.subscribe(screening =>{
+        this.mainService.updatedScreening$.subscribe(screening => {
             this.screeningService.updateScreening(screening, screening.id).subscribe(screning => {
                 this.getScreenings()
             })

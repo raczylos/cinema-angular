@@ -36,12 +36,12 @@ export class ScreeningsComponent implements OnInit {
         private mainService: MainService,
         private router: Router,
         private formBuilder: FormBuilder
-    ) { 
+    ) {
         this.mainService.screenings$.subscribe(screenings => {
             console.log(screenings)
             for (let screening of screenings) {
 
-                if(screening.date instanceof Date){
+                if (screening.date instanceof Date) {
                     continue
                 }
 
