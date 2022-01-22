@@ -18,7 +18,7 @@ export class MainService {
     private addedMovieSource: Subject<movie> = new Subject<movie>()
     private deletedMovieSource: Subject<movie> = new Subject<movie>()
 
-    private addedScreeningSource: Subject<screening> = new Subject <screening>()
+    private addedScreeningSource: Subject<screening> = new Subject<screening>()
 
     movies$ = this.moviesSource.asObservable()
     screenings$ = this.screeningsSource.asObservable()
@@ -35,6 +35,10 @@ export class MainService {
 
     getMovie(id: string): movie | undefined {
         return this.moviesSource.getValue().find(x => x.id === id)
+    }
+
+    getScreening(id: string): screening | undefined {
+        return this.screeningsSource.getValue().find(x => x.id === id)
     }
 
     updateMovie(movie: movie, id: string): void {
@@ -56,7 +60,7 @@ export class MainService {
 
     addScreening(screening: screening): void {
         let screeningsCopy = this.screeningsSource.getValue()
-        this.screeningsSource.next([...screeningsCopy, screening])
+        // this.screeningsSource.next([...screeningsCopy, screening])
         this.addedScreeningSource.next(screening)
 
     }

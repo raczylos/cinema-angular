@@ -3,7 +3,7 @@ import { movie } from "./movie";
 import { room } from "./room";
 
 export interface screening {
-    id: number;
+    id: string;
     film: movie;
     date: Date | any;
     time: Time;

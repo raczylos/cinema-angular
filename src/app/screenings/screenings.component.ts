@@ -40,6 +40,9 @@ export class ScreeningsComponent implements OnInit {
         this.mainService.screenings$.subscribe(screenings => {
             console.log(screenings)
             for (let screening of screenings) {
+                if(screening.date instanceof Date){
+                    continue
+                }
                 let dates: any = screening.date
                 let date: Date = new Date(dates[0], dates[1], dates[2])
                 screening.date = date
@@ -81,9 +84,9 @@ export class ScreeningsComponent implements OnInit {
     
 
     onSubmit(): void {
-        this.screeningService.addScreening(this.addScreeningForm.value).subscribe(screening => {
-            console.log(screening)
-        })
+        // this.screeningService.addScreening(this.addScreeningForm.value).subscribe(screening => {
+        //     console.log(screening)
+        // })
         this.mainService.addScreening(this.addScreeningForm.value)
     }
 
