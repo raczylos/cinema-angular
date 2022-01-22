@@ -13,7 +13,6 @@ export class MainService {
     private moviesSource: BehaviorSubject<movie[]> = new BehaviorSubject<movie[]>([])
     private screeningsSource: BehaviorSubject<screening[]> = new BehaviorSubject<screening[]>([])
     private roomsSource: BehaviorSubject<room[]> = new BehaviorSubject<room[]>([])
-
     private updatedMovieSource: Subject<movie> = new Subject<movie>()
     private addedMovieSource: Subject<movie> = new Subject<movie>()
     private deletedMovieSource: Subject<movie> = new Subject<movie>()
@@ -61,8 +60,8 @@ export class MainService {
     addScreening(screening: screening): void {
         let screeningsCopy = this.screeningsSource.getValue()
         // this.screeningsSource.next([...screeningsCopy, screening])
+        
         this.addedScreeningSource.next(screening)
-
     }
 
     loadMovies(movies: movie[]): void {

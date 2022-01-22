@@ -35,6 +35,7 @@ export class MainComponent implements OnInit {
         this.addMovie()
         this.deleteMovie()
         this.getRooms()
+        this.addScreening()
     }
 
     getMovies(): void {
@@ -67,6 +68,7 @@ export class MainComponent implements OnInit {
 
     addScreening(): void {
         this.mainService.addedScreening$.subscribe(screening => {
+            console.log("dodaje screening" + screening)
             this.screeningService.addScreening(screening).subscribe(() => {
                 this.getScreenings()
             })

@@ -229,10 +229,10 @@ app.get('/screenings/:id', (req, res) => {
 })
 
 app.post('/screenings', (req, res) => {
-    
+    console.log("elsldsld")
     let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
     // let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))['movies']
-    // let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
+    let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
     let screening = req.body
     let randId = crypto.randomUUID()
     screening.id = randId
@@ -240,8 +240,14 @@ app.post('/screenings', (req, res) => {
     let date = screening.date
 
     date = date.split('-').map(Number)  
+
+    date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)
+    
+    let room = screening.room
     screening.date = date
- 
+
+    let roomObject = roomsJson.find(x => x.nr === room)
+    screening.availableTickets = roomObject.capacity
     screeningsJson.push(screening)
     screeningsJson = JSON.stringify({screenings: screeningsJson})
     fs.writeFile('./screenings.json', screeningsJson, err => {
