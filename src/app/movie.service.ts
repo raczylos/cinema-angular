@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { movie } from 'src/Movie';
 
@@ -17,6 +17,8 @@ const httpOptions = {
 export class MovieService {
 
     private url = 'http://localhost:7777/movies';
+    private moviesSource = new Subject<movie[]>();
+    movies$ = this.moviesSource.asObservable()
 
     constructor(private http: HttpClient) { }
 

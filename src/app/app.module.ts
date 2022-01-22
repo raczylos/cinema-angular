@@ -21,6 +21,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { MainService } from './main.service';
 
 
 
@@ -49,7 +50,7 @@ import {MatCardModule} from '@angular/material/card';
         FontAwesomeModule,
         MatCardModule,
     ],
-    providers: [],
+    providers: [MainService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

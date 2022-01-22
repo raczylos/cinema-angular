@@ -164,10 +164,14 @@ app.delete('/movies/:id', (req, res) => {
         console.log('Saved!');
     });
     let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))
+    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))
     let filtered = moviesJson.movies.filter((x) => {
         return x.id !== movieId
     })
-    console.log(filtered)
+    let filteredScreenings = screeningsJson.screenings.filter((x) => {
+        return x.film !== movieId
+    })
+    fs.writeFileSync('./screenings.json', JSON.stringify({screenings: filteredScreenings}))
     filtered = JSON.stringify({ movies: filtered })
 
     fs.writeFile('./movies.json', filtered, err => {

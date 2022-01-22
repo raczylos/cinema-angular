@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -28,8 +29,13 @@ export class MovieDetailsComponent implements OnInit {
       private route: ActivatedRoute,
       private location: Location,
       private movieService: MovieService,
+      private mainService: MainService,
       private formBuilder: FormBuilder
-  ) { }
+  ) { 
+      mainService.updatedMovie$.subscribe(movie => {
+          this.movie = movie
+      })
+  }
 
   ngOnInit(): void {
       this.getMovie()
@@ -37,22 +43,16 @@ export class MovieDetailsComponent implements OnInit {
 
   getMovie(): void {
     const movieId = String(this.route.snapshot.paramMap.get('id'))
-    this.movieService.getMovie(movieId).subscribe(movie => {
-        this.movie = movie
-        console.log(movie)
-    })
+    this.movie = this.mainService.getMovie(movieId)
   }
 
   onSubmit(): void {
     const movieId = String(this.route.snapshot.paramMap.get('id'))
-    this.movieService.updateMovie(this.updateMovieForm.value, movieId).subscribe(movie => {
-      this.movie = movie
-    })
+    // this.movieService.updateMovie(this.updateMovieForm.value, movieId).subscribe(movie => {
+    //   this.movie = movie
+    // })
+    this.mainService.updateMovie(this.updateMovieForm.value, movieId)
     
   }
-
-  // onDelete(){
-  //   console.log(this.movie);
-  // }
   
 }
