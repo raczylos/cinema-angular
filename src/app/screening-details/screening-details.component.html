@@ -13,11 +13,26 @@
             <mat-card-subtitle>Available tickets: {{screening.availableTickets}}</mat-card-subtitle>
             <mat-card-subtitle>Room: {{screening.room.nr}}</mat-card-subtitle>
         </mat-card-content>
-        <mat-card-footer>
-            <button mat-button>Buy tickets</button>
-        </mat-card-footer>
     </mat-card>
 </div>
+<div>
+    <form (ngSubmit)="onSubmitBuyTicket()">
+        <div>
+            <mat-form-field>
+                <mat-label>Buy Tickets</mat-label>
+                <mat-select [(ngModel)]="choosenSeat" name="availableSeat">
+                    <mat-option *ngFor="let availableSeat of availableSeats" [value]="availableSeat">
+                        {{availableSeat}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button>Submit</button>
+        </div>
+    </form>
+</div>
+
 
 <form [formGroup]="updateScreeningForm" (ngSubmit)="onSubmit()">
     <div>

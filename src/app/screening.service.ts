@@ -55,6 +55,14 @@ export class ScreeningService {
 			.pipe(catchError(this.handleError<screening>('updateScreening')));
 	}
 
+	buyTickets(screening: screening, id: string): Observable<screening> {
+		const url = `${this.url}/${id}/buyTickets`
+		screening.id = id
+		return this.http
+			.put<screening>(url, screening, httpOptions)
+			.pipe(catchError(this.handleError<screening>('updateScreening')));
+	}
+
 	private handleError<T>(operation = 'operation', result?: T) {
 		return (error: any): Observable<T> => {
 			console.error(operation + ' failed' + error);

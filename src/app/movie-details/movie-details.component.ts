@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ModuleWithProviders , EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, ModuleWithProviders , EventEmitter, NgModule} from '@angular/core';
 import { MovieService } from '../movie.service';
 import { movie } from 'src/movie';
 import { FormBuilder } from '@angular/forms';
@@ -48,6 +48,43 @@ export class MovieDetailsComponent implements OnInit {
 
   onSubmit(): void {
     const movieId = String(this.route.snapshot.paramMap.get('id'))
+
+    if(!this.updateMovieForm.value.title){
+      alert('Please add a title!');
+      return;
+    }
+    else if(this.updateMovieForm.value.title.length <= 1){
+      alert('Name can not be less than 1 character')
+      return;
+    }
+    else if(this.updateMovieForm.value.title.charAt(0) !== this.updateMovieForm.value.title.charAt(0).toUpperCase()){
+      alert('First letter needs to be in upper case or a number.')
+      return;
+    }
+    if(!this.updateMovieForm.value.duration){
+      alert('Please add a duration!');
+      return;
+    }
+    else if(this.updateMovieForm.value.duration < 30){
+      alert('Duration must be more than 30')
+      return;
+    }
+    else if(this.updateMovieForm.value.duration > 300){
+      alert('Duration must be less than 300')
+      return;
+    }
+    if(!this.updateMovieForm.value.description){
+      alert('Please add a description!');
+      return;
+    }
+    if(!this.updateMovieForm.value.cast){
+      alert('Please add a cast!');
+      return;
+    }
+
+
+
+
     // this.movieService.updateMovie(this.updateMovieForm.value, movieId).subscribe(movie => {
     //   this.movie = movie
     // })

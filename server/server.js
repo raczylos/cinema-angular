@@ -228,7 +228,7 @@ app.get('/screenings/:id', (req, res) => {
 })
 
 app.post('/screenings', (req, res) => {
- 
+
     let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
     // let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))['movies']
     let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
@@ -287,7 +287,7 @@ app.put('/screenings/:id', (req, res) => {
 
     let screeningIdx = [...screeningsJson].findIndex(x => x.id === screeningid)
     screeningsJson[screeningIdx] = screening
-    screeningsJson = JSON.stringify({screenings: screeningsJson})
+    screeningsJson = JSON.stringify({ screenings: screeningsJson })
 
     fs.writeFile('./screenings.json', screeningsJson, err => {
         if (err) {
@@ -326,6 +326,44 @@ app.put('/screenings/:id', (req, res) => {
     //     console.log("Successfully edited screenings.json")
     // })
 
+
+})
+
+app.put('/screenings/:id/buyTickets', (req, res) => {
+
+    let screening = req.body
+    console.log("jestem w kupowaniu biletów")
+    console.log(req.body)
+
+    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
+    let idx = screeningsJson.findIndex((x) => {
+        return x.id === screening.id
+    })
+    screeningsJson[idx].takenSeats = screening.takenSeats
+    screeningsJson[idx].soldTickets = screening.soldTickets
+
+    // let date = screening.date
+    // date = date.substring(0, date.indexOf("T"))
+    // date = date.split('-').map(Number)
+    // console.log(date)
+    // console.log(date.getDay())
+    // date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)
+    // date[2]++
+    // screening.date = date
+
+    // screening.film = screening.film.id
+    // screening.room = screening.room.nr
+    // screeningsJson[idx] = screening
+
+    fs.writeFile('./screenings.json', JSON.stringify({ screenings: screeningsJson }), err => {
+        if (err) {
+            console.error(err)
+            res.status(500).send("Failed to write to file")
+            return
+        }
+        res.status(201).send(screening)
+        console.log("Successfully updated screenings.json")
+    })
 
 })
 
