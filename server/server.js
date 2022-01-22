@@ -134,25 +134,6 @@ app.put('/movies/:id/', (req, res) => {
     })
 })
 
-// app.put('/movies', (req, res) => {
-//     let movies = JSON.stringify({movies: req.body.movies})
-//     let request = `PUT: /movies\n`
-//     console.log(request)
-//     fs.appendFile('requests.txt', request, function (err) {
-//         if (err) throw err;
-//         console.log('Saved!');
-//       });
-//     console.log(movies)
-//     fs.writeFile('./movies.json', movies, err => {
-//         if(err) {
-//             console.error(err)
-//             res.status(500).send("Failed to write to file")
-//             return
-//         }
-//         res.status(201).send(req.body)
-//         console.log("Successfully updated movies.json")
-//     })
-// })
 
 app.delete('/movies/:id', (req, res) => {
     let movieId = req.params.id
@@ -232,57 +213,64 @@ app.get('/screenings/:id', (req, res) => {
 })
 
 app.post('/screenings', (req, res) => {
-    let screening = req.body.screening
-    let request = `POST: /screenings\n`
-    console.log(request)
-    fs.appendFile('requests.txt', request, function (err) {
-        if (err) throw err;
-        console.log('Saved!');
-    });
-    console.log(screening)
-    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))
-    screeningsJson.screenings.push(screening)
-    screeningsJson = JSON.stringify(screeningsJson)
+    
+    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
+    // let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))['movies']
+    // let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
+    let screening = req.body
+    let randId = crypto.randomUUID()
+    screening.id = randId
+    
+    let date = screening.date
+
+    date = date.split('-').map(Number)  
+    screening.date = date
+ 
+    screeningsJson.push(screening)
+    screeningsJson = JSON.stringify({screenings: screeningsJson})
     fs.writeFile('./screenings.json', screeningsJson, err => {
         if (err) {
             console.error(err)
             res.status(500).send("Failed to write to file")
             return
         }
-        res.status(201).send(req.body)
+        res.status(201).send(screening)
         console.log("Successfully updated screenings.json")
     })
+
+
+
 
 })
 
 app.put('/screenings', (req, res) => {
-    let request = "PUT: /screenings\n"
-    console.log(request)
-    fs.appendFile('requests.txt', request, function (err) {
-        if (err) throw err;
-        console.log('Saved!');
-    });
-    let screening = req.body.screening
-    console.log(screening)
-    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))
+    // let request = "PUT: /screenings\n"
+    // console.log(request)
+    // fs.appendFile('requests.txt', request, function (err) {
+    //     if (err) throw err;
+    //     console.log('Saved!');
+    // });
+    // let screening = req.body.screening
+    // console.log(screening)
+    // let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))
 
-    let idx = screeningsJson.screenings.findIndex((x) => {
-        return x.id === screening.id
-    })
+    // let idx = screeningsJson.screenings.findIndex((x) => {
+    //     return x.id === screening.id
+    // })
 
-    console.log(`found idx: ${idx}`)
-    screeningsJson.screenings[idx] = screening
-    console.log(`AFTER CHANGE: ${JSON.stringify(screeningsJson)}`)
-    screeningsJson = JSON.stringify(screeningsJson)
-    fs.writeFile('./screenings.json', screeningsJson, err => {
-        if (err) {
-            console.error(err)
-            res.status(500).send("Failed to write to file")
-            return
-        }
-        res.status(201).send(req.body)
-        console.log("Successfully edited screenings.json")
-    })
+    // console.log(`found idx: ${idx}`)
+    // screeningsJson.screenings[idx] = screening
+    // console.log(`AFTER CHANGE: ${JSON.stringify(screeningsJson)}`)
+    // screeningsJson = JSON.stringify(screeningsJson)
+    // fs.writeFile('./screenings.json', screeningsJson, err => {
+    //     if (err) {
+    //         console.error(err)
+    //         res.status(500).send("Failed to write to file")
+    //         return
+    //     }
+    //     res.status(201).send(req.body)
+    //     console.log("Successfully edited screenings.json")
+    // })
 
 })
 

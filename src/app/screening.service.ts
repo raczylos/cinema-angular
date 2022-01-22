@@ -14,7 +14,7 @@ const httpOptions = {
 export class ScreeningService {
 	private url = 'http://localhost:7777/screenings';
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) { }
 
 	getScreenings(): Observable<screening[]> {
 		return this.http
