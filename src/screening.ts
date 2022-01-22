@@ -1,5 +1,5 @@
 import { Time } from "@angular/common";
-import { movie } from "./Movie";
+import { movie } from "./movie";
 import { room } from "./room";
 
 export interface screening {
