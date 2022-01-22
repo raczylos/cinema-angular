@@ -32,7 +32,8 @@ export class ScreeningsComponent implements OnInit {
         room: '',
         soldTickets: 0,
         availableTickets: '',
-        takenSeats: ''
+        takenSeats: '',
+        
     })
 
     constructor(
@@ -101,11 +102,24 @@ export class ScreeningsComponent implements OnInit {
     // }
 
 
-
     onSubmit(): void {
-        // this.screeningService.addScreening(this.addScreeningForm.value).subscribe(screening => {
-        //     console.log(screening)
-        // })
+
+        let date = this.addScreeningForm.controls['date'].value
+        let [hours, minutes] = this.addScreeningForm.controls['time'].value.split(":")
+        hours = parseInt(hours, 10)
+        minutes = parseInt(minutes, 10)
+        date = date.split('-')
+        date = date.map((x: string) => parseInt(x))
+        date[1]--
+        date = new Date(date[0], date[1], date[2], hours, minutes)
+
+        let currentDate = new Date();
+
+        if(date < currentDate) {
+            alert('Choose a valid date');
+            return;
+        }
+
         this.mainService.addScreening(this.addScreeningForm.value)
     }
 
