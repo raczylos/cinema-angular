@@ -339,9 +339,21 @@ app.put('/screenings/:id/buyTickets', (req, res) => {
     let idx = screeningsJson.findIndex((x) => {
         return x.id === screening.id
     })
-    screening.film = screening.film.id
-    screening.room = screening.room.nr
-    screeningsJson[idx] = screening
+    screeningsJson[idx].takenSeats = screening.takenSeats
+    screeningsJson[idx].soldTickets = screening.soldTickets
+
+    // let date = screening.date
+    // date = date.substring(0, date.indexOf("T"))
+    // date = date.split('-').map(Number)
+    // console.log(date)
+    // console.log(date.getDay())
+    // date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)
+    // date[2]++
+    // screening.date = date
+
+    // screening.film = screening.film.id
+    // screening.room = screening.room.nr
+    // screeningsJson[idx] = screening
 
     fs.writeFile('./screenings.json', JSON.stringify({ screenings: screeningsJson }), err => {
         if (err) {

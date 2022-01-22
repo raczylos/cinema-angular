@@ -48,7 +48,6 @@ export class ScreeningsComponent implements OnInit {
                 if (screening.date instanceof Date) {
                     continue
                 }
-
                 let dates: any = screening.date
                 let date: Date = new Date(dates[0], dates[1], dates[2])
                 screening.date = date
@@ -66,10 +65,10 @@ export class ScreeningsComponent implements OnInit {
     filteredScreeningsList(): void {
         console.log(this.selectedDate.value)
         let newScreenings = this.screenings.filter(x => {
-            let d = x.date
+            let d = new Date(x.date.getTime())
             let [hours, minutes] = x.time.split(":")
-            d.setHours(hours)
-            d.setMinutes(minutes)
+            d.setHours(parseInt(hours))
+            d.setMinutes(parseInt(minutes))
             return d > this.selectedDate.value
         })
         console.log(newScreenings)
@@ -83,6 +82,9 @@ export class ScreeningsComponent implements OnInit {
 
     ngOnInit(): void {
         this.filteredScreeningsList()
+        this.mainService.screenings$.subscribe(() => {
+            this.filteredScreeningsList()
+        })
     }
 
     // getScreenings(): void {
