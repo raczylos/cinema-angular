@@ -6,7 +6,7 @@ export interface screening {
     id: string;
     film: movie;
     date: Date | any;
-    time: Time;
+    time: string;
     room: room;
     soldTickets: number;
     availableTickets: number;

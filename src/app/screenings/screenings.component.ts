@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { MainService } from '../main.service';
 import { movie } from 'src/movie';
 import { room } from 'src/room';
+import { FormControl } from '@angular/forms';
 @Component({
     selector: 'app-screenings',
     templateUrl: './screenings.component.html',
@@ -16,6 +17,9 @@ export class ScreeningsComponent implements OnInit {
     screenings: screening[] = []
     movies: movie[] = []
     rooms: room[] = []
+
+    selectedDate = new FormControl(new Date())
+    filteredScreenings: screening[] = [...this.screenings]
 
     selectedScreening: screening | undefined
     // selectedScreening!: string
@@ -37,15 +41,14 @@ export class ScreeningsComponent implements OnInit {
         private mainService: MainService,
         private router: Router,
         private formBuilder: FormBuilder
-    ) { 
+    ) {
         this.mainService.screenings$.subscribe(screenings => {
             console.log(screenings)
             for (let screening of screenings) {
 
-                if(screening.date instanceof Date){
+                if (screening.date instanceof Date) {
                     continue
                 }
-
                 let dates: any = screening.date
                 let date: Date = new Date(dates[0], dates[1], dates[2])
                 screening.date = date
@@ -60,14 +63,30 @@ export class ScreeningsComponent implements OnInit {
         })
     }
 
-
+    filteredScreeningsList(): void {
+        console.log(this.selectedDate.value)
+        let newScreenings = this.screenings.filter(x => {
+            let d = new Date(x.date.getTime())
+            let [hours, minutes] = x.time.split(":")
+            d.setHours(parseInt(hours))
+            d.setMinutes(parseInt(minutes))
+            return d > this.selectedDate.value
+        })
+        console.log(newScreenings)
+        this.filteredScreenings = newScreenings
+    }
 
     navigate(screening: screening): void {
         console.log(screening.id)
         this.router.navigate(['/screenings', screening.id])
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.filteredScreeningsList()
+        this.mainService.screenings$.subscribe(() => {
+            this.filteredScreeningsList()
+        })
+    }
 
     // getScreenings(): void {
     //     this.screeningService.getScreenings().subscribe(screenings => {

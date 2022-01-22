@@ -107,7 +107,6 @@ app.get('/movies/:id', (req, res) => {
 app.put('/movies/:id/', (req, res) => {
     let movie = req.body
     let movieId = req.params.id
-    console.log("jestem w edycjii")
     console.log(req.body.title)
     // console.log("WAZNY CONSOLE LOG: " + movie)
     // let movies = JSON.stringify({movies: req.body.movies})
@@ -152,7 +151,7 @@ app.delete('/movies/:id', (req, res) => {
     let filteredScreenings = screeningsJson.screenings.filter((x) => {
         return x.film !== movieId
     })
-    fs.writeFileSync('./screenings.json', JSON.stringify({screenings: filteredScreenings}))
+    fs.writeFileSync('./screenings.json', JSON.stringify({ screenings: filteredScreenings }))
     filtered = JSON.stringify({ movies: filtered })
 
     fs.writeFile('./movies.json', filtered, err => {
@@ -176,7 +175,7 @@ app.get('/screenings', (req, res) => {
     let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
     let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))['movies']
     let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
-    for(let screening of screeningsJson) { 
+    for (let screening of screeningsJson) {
         let movieId = screening.film
         let movie = moviesJson.find(x => x.id === movieId)
         screening.film = movie
@@ -185,7 +184,7 @@ app.get('/screenings', (req, res) => {
         let room = roomsJson.find(x => x.nr === roomId)
         screening.room = room
 
-        
+
     }
     screeningsJson = JSON.stringify(screeningsJson)
     res.status(201).send(screeningsJson)
@@ -229,27 +228,27 @@ app.get('/screenings/:id', (req, res) => {
 })
 
 app.post('/screenings', (req, res) => {
-    console.log("elsldsld")
+
     let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
     // let moviesJson = JSON.parse(fs.readFileSync('./movies.json'))['movies']
     let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
     let screening = req.body
     let randId = crypto.randomUUID()
     screening.id = randId
-    
+
     let date = screening.date
 
-    date = date.split('-').map(Number)  
+    date = date.split('-').map(Number)
 
     date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)
-    
+
     let room = screening.room
     screening.date = date
 
     let roomObject = roomsJson.find(x => x.nr === room)
     screening.availableTickets = roomObject.capacity
     screeningsJson.push(screening)
-    screeningsJson = JSON.stringify({screenings: screeningsJson})
+    screeningsJson = JSON.stringify({ screenings: screeningsJson })
     fs.writeFile('./screenings.json', screeningsJson, err => {
         if (err) {
             console.error(err)
@@ -265,7 +264,40 @@ app.post('/screenings', (req, res) => {
 
 })
 
-app.put('/screenings', (req, res) => {
+app.put('/screenings/:id', (req, res) => {
+    let screening = req.body
+    let screeningid = req.params.id
+    console.log("chce tu byc " + screening.id)
+
+
+    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
+    let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
+    let date = screening.date
+
+    date = date.split('-').map(Number)
+
+    date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)
+
+    let room = screening.room
+    screening.date = date
+
+    let roomObject = roomsJson.find(x => x.nr === room)
+
+    screening.availableTickets = roomObject.capacity
+
+    let screeningIdx = [...screeningsJson].findIndex(x => x.id === screeningid)
+    screeningsJson[screeningIdx] = screening
+    screeningsJson = JSON.stringify({ screenings: screeningsJson })
+
+    fs.writeFile('./screenings.json', screeningsJson, err => {
+        if (err) {
+            console.error(err)
+            res.status(500).send("Failed to write to file")
+            return
+        }
+        res.status(201).send(screening)
+        console.log("Successfully updated screenings.json")
+    })
     // let request = "PUT: /screenings\n"
     // console.log(request)
     // fs.appendFile('requests.txt', request, function (err) {
@@ -293,6 +325,45 @@ app.put('/screenings', (req, res) => {
     //     res.status(201).send(req.body)
     //     console.log("Successfully edited screenings.json")
     // })
+
+
+})
+
+app.put('/screenings/:id/buyTickets', (req, res) => {
+
+    let screening = req.body
+    console.log("jestem w kupowaniu biletów")
+    console.log(req.body)
+
+    let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
+    let idx = screeningsJson.findIndex((x) => {
+        return x.id === screening.id
+    })
+    screeningsJson[idx].takenSeats = screening.takenSeats
+    screeningsJson[idx].soldTickets = screening.soldTickets
+
+    // let date = screening.date
+    // date = date.substring(0, date.indexOf("T"))
+    // date = date.split('-').map(Number)
+    // console.log(date)
+    // console.log(date.getDay())
+    // date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)
+    // date[2]++
+    // screening.date = date
+
+    // screening.film = screening.film.id
+    // screening.room = screening.room.nr
+    // screeningsJson[idx] = screening
+
+    fs.writeFile('./screenings.json', JSON.stringify({ screenings: screeningsJson }), err => {
+        if (err) {
+            console.error(err)
+            res.status(500).send("Failed to write to file")
+            return
+        }
+        res.status(201).send(screening)
+        console.log("Successfully updated screenings.json")
+    })
 
 })
 

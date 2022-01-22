@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class MainService {
@@ -14,6 +14,8 @@ export class MainService {
     private screeningsSource: BehaviorSubject<screening[]> = new BehaviorSubject<screening[]>([])
     private roomsSource: BehaviorSubject<room[]> = new BehaviorSubject<room[]>([])
     private updatedMovieSource: Subject<movie> = new Subject<movie>()
+    private updatedScreeningSource: Subject<screening> = new Subject<screening>()
+    private buyTicketsSource: Subject<screening> = new Subject<screening>()
     private addedMovieSource: Subject<movie> = new Subject<movie>()
     private deletedMovieSource: Subject<movie> = new Subject<movie>()
 
@@ -23,9 +25,10 @@ export class MainService {
     screenings$ = this.screeningsSource.asObservable()
     rooms$ = this.roomsSource.asObservable()
     updatedMovie$ = this.updatedMovieSource.asObservable()
+    updatedScreening$ = this.updatedScreeningSource.asObservable()
     addedMovie$ = this.addedMovieSource.asObservable()
     deletedMovie$ = this.deletedMovieSource.asObservable()
-
+    buyTickets$ = this.buyTicketsSource.asObservable()
     addedScreening$ = this.addedScreeningSource.asObservable()
 
     private movies: movie[] = []
@@ -47,6 +50,20 @@ export class MainService {
         this.updatedMovieSource.next(movie)
     }
 
+    updateScreening(screening: screening, id: string): void {
+        let screningsCopy = this.screeningsSource.getValue()
+        let idx = screningsCopy.findIndex(x => x.id === id)
+        screening.id = id
+        this.updatedScreeningSource.next(screening)
+    }
+
+    buyTickets(screening: screening, id: string): void {
+        let screningsCopy = this.screeningsSource.getValue()
+        let idx = screningsCopy.findIndex(x => x.id === id)
+        screening.id = id
+        this.buyTicketsSource.next(screening)
+    }
+
     deleteMovie(movie: movie): void {
         this.deletedMovieSource.next(movie)
     }
@@ -60,7 +77,7 @@ export class MainService {
     addScreening(screening: screening): void {
         let screeningsCopy = this.screeningsSource.getValue()
         // this.screeningsSource.next([...screeningsCopy, screening])
-        
+
         this.addedScreeningSource.next(screening)
     }
 
@@ -79,5 +96,5 @@ export class MainService {
         this.rooms = rooms
     }
 
-  constructor() { }
+    constructor() { }
 }
