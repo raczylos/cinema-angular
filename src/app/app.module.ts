@@ -23,6 +23,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import { MainService } from './main.service';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -52,7 +53,7 @@ import { MainService } from './main.service';
         MatCardModule,
         MatSelectModule
     ],
-    providers: [MainService],
+    providers: [MainService, DatePipe],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
