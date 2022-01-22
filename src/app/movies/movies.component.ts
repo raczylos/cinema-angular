@@ -44,6 +44,40 @@ export class MoviesComponent implements OnInit {
 	}
 
 	onSubmit(): void {
+
+		if(!this.addMovieForm.value.title){
+			alert('Please add a title!');
+			return;
+		  }
+		  else if(this.addMovieForm.value.title.length <= 1){
+			alert('Name can not be less than 1 character')
+			return;
+		  }
+		  else if(this.addMovieForm.value.title.charAt(0) !== this.addMovieForm.value.title.charAt(0).toUpperCase()){
+			alert('First letter needs to be in upper case or a number.')
+			return;
+		}
+		if(!this.addMovieForm.value.duration){
+			alert('Please add a duration!');
+			return;
+		  }
+		  else if(this.addMovieForm.value.duration < 30){
+			alert('Duration must be more than 30')
+			return;
+		  }
+		  else if(this.addMovieForm.value.duration > 300){
+			alert('Duration must be less than 300')
+			return;
+		  }
+		  if(!this.addMovieForm.value.description){
+			alert('Please add a description!');
+			return;
+		}
+		  if(!this.addMovieForm.value.cast){
+			alert('Please add a cast!');
+			return;
+		}
+
         this.mainService.addMovie(this.addMovieForm.value)
 	}
 

@@ -89,6 +89,7 @@ export class ScreeningsComponent implements OnInit {
         // this.screeningService.addScreening(this.addScreeningForm.value).subscribe(screening => {
         //     console.log(screening)
         // })
+   
         this.mainService.addScreening(this.addScreeningForm.value)
     }
 
