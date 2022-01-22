@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { MainService } from '../main.service';
 import { movie } from 'src/movie';
 import { room } from 'src/room';
+import { FormControl } from '@angular/forms';
 @Component({
     selector: 'app-screenings',
     templateUrl: './screenings.component.html',
@@ -16,6 +17,9 @@ export class ScreeningsComponent implements OnInit {
     screenings: screening[] = []
     movies: movie[] = []
     rooms: room[] = []
+
+    selectedDate = new FormControl(new Date())
+    filteredScreenings: screening[] = [...this.screenings]
 
     selectedScreening: screening | undefined
     // selectedScreening!: string
@@ -59,7 +63,18 @@ export class ScreeningsComponent implements OnInit {
         })
     }
 
-
+    filteredScreeningsList(): void {
+        console.log(this.selectedDate.value)
+        let newScreenings = this.screenings.filter(x => {
+            let d = x.date
+            let [hours, minutes] = x.time.split(":")
+            d.setHours(hours)
+            d.setMinutes(minutes)
+            return d > this.selectedDate.value
+        })
+        console.log(newScreenings)
+        this.filteredScreenings = newScreenings
+    }
 
     navigate(screening: screening): void {
         console.log(screening.id)
@@ -67,7 +82,7 @@ export class ScreeningsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.filteredScreeningsList()
     }
 
     // getScreenings(): void {
