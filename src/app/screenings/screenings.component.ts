@@ -7,6 +7,7 @@ import { MainService } from '../main.service';
 import { movie } from 'src/movie';
 import { room } from 'src/room';
 import { FormControl } from '@angular/forms';
+
 @Component({
     selector: 'app-screenings',
     templateUrl: './screenings.component.html',
@@ -19,6 +20,7 @@ export class ScreeningsComponent implements OnInit {
     rooms: room[] = []
 
     selectedDate = new FormControl(new Date())
+    selectedTime = new FormControl('0:00')
     filteredScreenings: screening[] = [...this.screenings]
 
     selectedScreening: screening | undefined
@@ -65,6 +67,11 @@ export class ScreeningsComponent implements OnInit {
 
     filteredScreeningsList(): void {
         console.log(this.selectedDate.value)
+        let [selectedHours, selectedMinutes] = this.selectedTime.value.split(":")
+        selectedHours = parseInt(selectedHours, 10)
+        selectedMinutes = parseInt(selectedMinutes, 10)
+        this.selectedDate.value.setHours(selectedHours)
+        this.selectedDate.value.setMinutes(selectedMinutes)
         let newScreenings = this.screenings.filter(x => {
             let d = x.date
             let [hours, minutes] = x.time.split(":")
