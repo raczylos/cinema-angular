@@ -191,6 +191,18 @@ app.get('/screenings', (req, res) => {
     res.status(201).send(screeningsJson)
 })
 
+app.get('/rooms', (req, res) => {
+    let request = "GET: /screenings\n"
+    console.log(request)
+    fs.appendFile('requests.txt', request, function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
+    let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
+    roomsJson = JSON.stringify(roomsJson)
+    res.status(201).send(roomsJson)
+})
+
 app.get('/screenings/:id', (req, res) => {
     const id = req.params.id
     let request = `GET: /screenings/${id}\n`

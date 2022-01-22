@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { movie } from 'src/Movie';
+import { movie } from 'src/movie';
 import { screening } from 'src/screening';
 import { room } from 'src/room';
 import { Subject } from 'rxjs';
@@ -18,12 +18,16 @@ export class MainService {
     private addedMovieSource: Subject<movie> = new Subject<movie>()
     private deletedMovieSource: Subject<movie> = new Subject<movie>()
 
+    private addedScreeningSource: Subject<screening> = new Subject <screening>()
+
     movies$ = this.moviesSource.asObservable()
     screenings$ = this.screeningsSource.asObservable()
     rooms$ = this.roomsSource.asObservable()
     updatedMovie$ = this.updatedMovieSource.asObservable()
     addedMovie$ = this.addedMovieSource.asObservable()
     deletedMovie$ = this.deletedMovieSource.asObservable()
+
+    addedScreening$ = this.addedScreeningSource.asObservable()
 
     private movies: movie[] = []
     private screenings: screening[] = []
@@ -48,6 +52,13 @@ export class MainService {
         let moviesCopy = this.moviesSource.getValue()
         this.moviesSource.next([...moviesCopy, movie])
         this.addedMovieSource.next(movie)
+    }
+
+    addScreening(screening: screening): void {
+        let screeningsCopy = this.screeningsSource.getValue()
+        this.screeningsSource.next([...screeningsCopy, screening])
+        this.addedScreeningSource.next(screening)
+
     }
 
     loadMovies(movies: movie[]): void {
