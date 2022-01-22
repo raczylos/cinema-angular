@@ -1,5 +1,7 @@
 .movie-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    margin-top: 1rem;
 }
+a {
+    color: white;
+    text-decoration: none; /* no underline */
+  }

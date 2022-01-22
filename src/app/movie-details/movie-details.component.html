@@ -1,17 +1,19 @@
 <div *ngIf="movie">
-    <h1>{{movie.title}} <p>   </p> </h1>
-    <div>
-        <span>Duration: {{movie.duration}}</span>
-    </div>
-    <div>
-        <span>Cast: {{movie.cast}}</span>
-    </div>
-    <div>
-        <span>Description: {{movie.description}}</span>
-    </div>
+    <mat-card>
+        <mat-card-title-group>
+            <div mat-card-avatar>
+            </div>
+            <a mat-card-title [routerLink]="['/movies', movie.id]">{{movie.title}} </a>
+        </mat-card-title-group>
+        <mat-card-content>
+            <mat-card-subtitle>duration: {{movie.duration}}</mat-card-subtitle>
+            <mat-card-subtitle>description: {{movie.description}}</mat-card-subtitle>
+            <mat-card-subtitle>cast: {{movie.cast}}</mat-card-subtitle>
+        </mat-card-content>
+    </mat-card>
 </div>
 
-<div>
+<div class="edit-movie">
     <h1>Update movie!</h1>
     <form [formGroup]="updateMovieForm" (ngSubmit)="onSubmit()">
         <div>

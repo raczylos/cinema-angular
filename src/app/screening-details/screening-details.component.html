@@ -1,4 +1,3 @@
-<p>screening-details works!</p>
 <div class="screening-details" *ngIf="screening">
     <mat-card >
         <mat-card-title-group>
@@ -9,17 +8,16 @@
             </mat-card-subtitle>
         </mat-card-title-group>
         <mat-card-content>
-            <mat-card-subtitle>Sold tickets: {{screening.soldTickets}}</mat-card-subtitle>
-            <mat-card-subtitle>Available tickets: {{screening.availableTickets}}</mat-card-subtitle>
+            <mat-card-subtitle>Sold tickets: {{screening.soldTickets}} / {{screening.availableTickets}}</mat-card-subtitle>
             <mat-card-subtitle>Room: {{screening.room.nr}}</mat-card-subtitle>
         </mat-card-content>
     </mat-card>
 </div>
-<div>
+<div class="buy-ticket">
     <form (ngSubmit)="onSubmitBuyTicket()">
         <div>
             <mat-form-field>
-                <mat-label>Buy Tickets</mat-label>
+                <mat-label>Buy tickets</mat-label>
                 <mat-select [(ngModel)]="choosenSeat" name="availableSeat">
                     <mat-option *ngFor="let availableSeat of availableSeats" [value]="availableSeat">
                         {{availableSeat}}
@@ -33,43 +31,45 @@
     </form>
 </div>
 
-
-<form [formGroup]="updateScreeningForm" (ngSubmit)="onSubmit()">
-    <div>
-        <mat-form-field>
-            <mat-label>Select film</mat-label>
-            <mat-select  formControlName="film" >
-                <mat-option *ngFor="let movie of movies" [value]="movie.id">
-                    {{movie.title}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field>
-            <mat-label>Select room</mat-label>
-            <mat-select  formControlName="room" >
-                <mat-option *ngFor="let room of rooms" [value]="room.nr">
-                    {{room.nr}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field>
-            <mat-label>Select date</mat-label>
-            <input type="date" matInput formControlName="date">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field>
-            <mat-label>Select time</mat-label>
-            <input type="time" matInput formControlName="time">
-        </mat-form-field>
-    </div>
-    <div>
-        <button mat-raised-button>Submit</button>
-    </div>
-    
-</form>
+<div class="update-screening">
+    <h1>Edit screening</h1>
+    <form [formGroup]="updateScreeningForm" (ngSubmit)="onSubmit()">
+        <div>
+            <mat-form-field>
+                <mat-label>Select film</mat-label>
+                <mat-select  formControlName="film" >
+                    <mat-option *ngFor="let movie of movies" [value]="movie.id">
+                        {{movie.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Select room</mat-label>
+                <mat-select  formControlName="room" >
+                    <mat-option *ngFor="let room of rooms" [value]="room.nr">
+                        {{room.nr}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Select date</mat-label>
+                <input type="date" matInput formControlName="date">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Select time</mat-label>
+                <input type="time" matInput formControlName="time">
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button>Submit</button>
+        </div>
+        
+    </form>
+</div>
 
