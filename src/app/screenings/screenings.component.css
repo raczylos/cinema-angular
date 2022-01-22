@@ -6,3 +6,19 @@
     cursor: pointer;
     margin-top: 1rem;
 }
+.screening-filter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-top: 1rem;
+    border-top: 1px solid rgb(53, 53, 53);
+}
+.add-screening {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-top: 1rem;
+    border-top: 1px solid rgb(53, 53, 53);
+}

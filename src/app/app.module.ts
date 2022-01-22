@@ -8,6 +8,7 @@ import { ScreeningDetailsComponent } from './screening-details/screening-details
 import { MoviesComponent } from './movies/movies.component';
 import { MainComponent } from './main/main.component';
 import { RoomsComponent } from './rooms/rooms.component';
+import { MainService } from './main.service';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,7 +23,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
-import { MainService } from './main.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 
 
@@ -50,7 +53,9 @@ import { MainService } from './main.service';
         MatButtonModule,
         FontAwesomeModule,
         MatCardModule,
-        MatSelectModule
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     providers: [MainService],
     bootstrap: [AppComponent]

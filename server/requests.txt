@@ -1447,6 +1447,7 @@ GET: /screenings
 GET: /screenings
 GET: /screenings
 GET: /screenings
+<<<<<<< HEAD
 DELETE: /movies/662df1ae-06ac-4644-8ae5-b099702212b7
 GET: /screenings
 GET: /screenings
@@ -1589,6 +1590,8 @@ GET: /screenings
 GET: /screenings
 GET: /screenings
 GET: /screenings
+=======
+>>>>>>> fb9545be2f7f30f843503cce6b45ae5d2407ee8c
 GET: /screenings
 GET: /screenings
 GET: /screenings
