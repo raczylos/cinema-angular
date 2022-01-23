@@ -1,1 +1,24 @@
-{"screenings":[{"id":"e024aeb2-8d3e-4f46-87b8-b1c54b2b175c","film":"4","date":[2022,0,23],"time":"22:44","room":"3","soldTickets":20,"availableTickets":20,"takenSeats":["1","2","3","6","4","5","7","8","9","10","13","11","12","14","15","16","17","18","19","20"]},{"id":"86245172-d18a-4e6a-a410-fe1b8e85313f","film":"4","date":[2021,11,30],"time":"22:46","room":"2","soldTickets":0,"availableTickets":20,"takenSeats":""},{"id":"c13ddfc7-6b25-488e-b779-ee21679124c8","film":"b2302134-2178-4d1a-a453-1a60216e9f31","date":[2022,0,8],"time":"22:52","room":"3","soldTickets":1,"availableTickets":20,"takenSeats":["1"]},{"id":"d3b0d9e1-0bd8-4bfe-a762-e9843daf5c81","film":"b2302134-2178-4d1a-a453-1a60216e9f31","date":[2022,0,8],"time":"22:52","room":"3","soldTickets":0,"availableTickets":20,"takenSeats":""},{"id":"071a9372-5589-4f9b-b6c2-a93a613812a5","film":"b2302134-2178-4d1a-a453-1a60216e9f31","date":[2022,0,8],"time":"22:52","room":"3","soldTickets":5,"availableTickets":20,"takenSeats":["4","7","1","2","3"]},{"id":"b43b6751-2d1f-4a48-833a-d3330e18a1f7","film":"82e44c63-27c6-448e-8113-cbd7502fc408","date":[2022,0,23],"time":"04:08","room":"4","soldTickets":1,"availableTickets":20,"takenSeats":["1"]}]}
+{
+	"screenings": [
+		{
+			"id": "bbe29c14-e201-4286-b2cc-2636138bc79c",
+			"film": "a5aa74f9-09f2-4cd4-bcc5-904dc86d54f8",
+			"date": [2022, 0, 25],
+			"time": "19:07",
+			"room": "2",
+			"soldTickets": 3,
+			"availableTickets": 20,
+			"takenSeats": ["1", "2", "3"]
+		},
+		{
+			"id": "e3e05973-f8ce-4715-9e4b-1fc9d5f2a5ac",
+			"film": "05fb3346-ed68-42e5-bb27-64d76ba9577a",
+			"date": [2022, 0, 26],
+			"time": "15:07",
+			"room": "3",
+			"soldTickets": 3,
+			"availableTickets": 20,
+			"takenSeats": ["1", "2", "3"]
+		}
+	]
+}

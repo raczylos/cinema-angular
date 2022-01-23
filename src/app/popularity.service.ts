@@ -21,13 +21,13 @@ export class PopularityService {
   
   }
 
-
   getPopularity(screenings: screening[]): { popularity: number[], popularityScreeningTitle: string[] } { // typ pewnie screening[] 
     this.popularity.length = 0
     this.popularityScreeningTitle.length = 0
       for (let screening of screenings) {
 
       if (screening.takenSeats) {
+          console.log(this.popularityScreeningTitle)
         if (this.popularityScreeningTitle.find(x => x === screening.film.title) != undefined) { // jezeli znajdziemy ten sam film to += do jego popularnosci
 
           let idx = this.popularityScreeningTitle.findIndex(x => x === screening.film.title)
@@ -39,11 +39,9 @@ export class PopularityService {
         }
       }
 
-      console.log(screening.takenSeats)
-
-      console.log(this.popularity)
-
-      console.log(this.popularityScreeningTitle)
+    //   console.log(screening.takenSeats)
+    //   console.log(this.popularity)
+    //   console.log(this.popularityScreeningTitle)
     }
 
     this.allPopularity.popularity = this.popularity
@@ -51,6 +49,5 @@ export class PopularityService {
     
     return this.allPopularity
   }
-
 
 }
