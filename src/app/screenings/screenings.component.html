@@ -2,7 +2,7 @@
 <div class="screenings-list">
     <mat-card class="screening-item" *ngFor="let screening of filteredScreenings" (click)="navigate(screening)">
         <mat-card-content>
-            <mat-card-title>{{screening.film.title}}</mat-card-title>
+            <mat-card-title appTitleDirective title={{screening.film.title}} color="#01FF70" font="calibri" >{{screening.film.title}}</mat-card-title>
             <mat-card-subtitle>
                 <span>{{screening.date | date: 'd/M/y'}}</span> 
                 <span> {{screening.time}}</span>

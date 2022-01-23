@@ -6,7 +6,7 @@
             <div mat-card-avatar>
             </div>
             <fa-icon class="test" (click)="onDelete(movie)" [ngStyle]="{'color': 'red'}" [icon] = "faTimes"></fa-icon> 
-            <a mat-card-title [routerLink]="['/movies', movie.id]">{{movie.title}} </a>
+            <a appTitleDirective title={{movie.title}} color="#01FF70" font="calibri" mat-card-title [routerLink]="['/movies', movie.id]">{{movie.title}} </a>
         </mat-card-title-group>
         <mat-card-content>
             <mat-card-subtitle>duration: {{movie.duration}}</mat-card-subtitle>

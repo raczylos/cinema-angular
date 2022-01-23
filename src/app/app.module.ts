@@ -27,6 +27,7 @@ import { DatePipe } from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TitleDirectiveDirective } from './title-directive.directive';
 
 
 
@@ -42,6 +43,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         MovieItemComponent,
         ScreeningDetailsComponent,
         PageNotFoundComponent,
+        TitleDirectiveDirective,
     ],
     imports: [
         BrowserModule,
