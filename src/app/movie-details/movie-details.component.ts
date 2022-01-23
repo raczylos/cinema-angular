@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MainService } from '../main.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-movie-details',
@@ -18,12 +19,12 @@ export class MovieDetailsComponent implements OnInit {
 
 
     updateMovieForm = this.formBuilder.group({
-      id: '',
-      title: '',
-      duration: '',
-      description: '',
-      cast: ''
-    })
+        id: '',
+        title: '',
+        duration: '',
+        description: '',
+        cast: ''
+      })
 
   constructor(
       private route: ActivatedRoute,
@@ -39,6 +40,13 @@ export class MovieDetailsComponent implements OnInit {
 
   ngOnInit(): void {
       this.getMovie()
+      this.updateMovieForm.setValue({
+        id: "",
+        title: this.movie!.title,
+        duration: this.movie!.duration,
+        description: this.movie!.description,
+        cast: this.movie!.cast
+    })
   }
 
   getMovie(): void {
