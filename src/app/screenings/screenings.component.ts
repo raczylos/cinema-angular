@@ -20,14 +20,20 @@ Chart.register(...registerables);
     styleUrls: ['./screenings.component.css']
 })
 export class ScreeningsComponent implements OnInit {
+
+
+
     screenings: screening[] = []
     movies: movie[] = []
     rooms: room[] = []
+  
 
     allPopularity: { popularity: number[], popularityScreeningTitle: string[] } = {
         popularity: [],
         popularityScreeningTitle: []
       }
+       
+      
 
     selectedDate = new FormControl(new Date())
 
@@ -35,6 +41,11 @@ export class ScreeningsComponent implements OnInit {
     filteredScreenings: screening[] = [...this.screenings]
 
     selectedScreening: screening | undefined
+    // selectedScreening!: string
+
+    // popularity: number[] = []
+    // popularityScreeningTitle: string[] = []
+
     chart!: Chart
 
     addScreeningForm = this.formBuilder.group({
@@ -82,13 +93,16 @@ export class ScreeningsComponent implements OnInit {
         this.allPopularity = this.popularityService.getPopularity(this.filteredScreenings);
       }
 
+
     displayChart(): void {
         this.chart = new Chart("chart", {
             type: 'bar',
             data: {
+                // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                 labels: this.allPopularity.popularityScreeningTitle,
                 datasets: [{
                     label: 'popularity chart',
+                    // data: [12, 19, 3, 5, 2, 3],
                     data: this.allPopularity.popularity,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -122,13 +136,46 @@ export class ScreeningsComponent implements OnInit {
 
     updateData(): void {
         this.getPopularity()
+        
         if(this.chart !== undefined){
             console.log("moge wejsc")
             this.chart.data.datasets[0].data = this.allPopularity.popularity
             this.chart.data.labels = this.allPopularity.popularityScreeningTitle
             this.chart.update();
         }
+        
+        
     }
+
+
+                                    //NIZEJ STARE POPULARITY BEZ KORZYSTANIA Z SERWISU SYNCHRONICZNEGO
+    // getPopularity(): void {
+    //     this.popularity.length = 0
+    //     this.popularityScreeningTitle.length = 0
+    //     for (let screening of this.filteredScreenings) {
+
+    //         if (screening.takenSeats) {
+    //             if(this.popularityScreeningTitle.find(x => x === screening.film.title) != undefined){ // jezeli znajdziemy ten sam film to += do jego popularnosci
+                    
+    //                 let idx = this.popularityScreeningTitle.findIndex(x => x === screening.film.title)
+    //                 this.popularity[idx] += screening.takenSeats.length
+    //             }
+    //             else{
+    //                 this.popularity.push(screening.takenSeats.length)
+    //                 this.popularityScreeningTitle.push(screening.film.title)
+    //             }
+    //         }
+            
+    //         console.log(screening.takenSeats)
+            
+    //         console.log(this.popularity)
+            
+    //         console.log(this.popularityScreeningTitle)
+    //     }
+        
+    // }
+
+
 
     filteredScreeningsList(): void {
         console.log(this.selectedDate.value)
@@ -159,17 +206,46 @@ export class ScreeningsComponent implements OnInit {
     ngOnInit(): void {
         this.filteredScreeningsList()
         this.mainService.screenings$.subscribe(() => {
+
             this.filteredScreeningsList()
+            
+
         })
+        // this.getPopularity()
         this.displayChart()
-        if(this.screenings){
-        }
+        this.getPopularity()
+        
+
+       
     }
+
+    // getScreenings(): void {
+    //     this.screeningService.getScreenings().subscribe(screenings => {
+    //         console.log(screenings)
+    //         for (let screening of screenings) {
+    //             let dates: any = screening.date
+    //             let date: Date = new Date(dates[0], dates[1], dates[2])
+    //             screening.date = date
+    //         }
+    //         this.screenings = screenings
+
+    //     })
+    // }
+
 
     onSubmit(): void {
 
         let date = this.addScreeningForm.controls['date'].value
+        if(!date){
+            
+            alert("date is empty")
+            return ;
+        }
         let [hours, minutes] = this.addScreeningForm.controls['time'].value.split(":")
+        if(!hours){
+            alert("time is empty")
+            return ;
+        }
         hours = parseInt(hours, 10)
         minutes = parseInt(minutes, 10)
         date = date.split('-')
