@@ -29,7 +29,7 @@ export class ScreeningDetailsComponent implements OnInit {
     // seatObject: Object = Object.create(null)
 
     
-    seatObject: { [name: string]: string } = {}
+    seatObject: { [key: string]: string } = {}
     availableSeatsList(): void {
         // for(let i = 0; i < parseInt(this.screening.room.capacity) - this.screening.soldTickets; i++){
         //   console.log("ilosc miejsc wolnych = " + (parseInt(this.screening.room.capacity) - this.screening.soldTickets))
@@ -81,10 +81,8 @@ export class ScreeningDetailsComponent implements OnInit {
 
         this.getScreening();
         this.mainService.screenings$.subscribe(() => {
-            (data: any) => { this.getScreening() }
-            (error: any) => {
-                this.router.navigate(['/error404']);
-            }
+             this.getScreening() 
+            
         })
         this.mainService.movies$.subscribe((movies) => {
             this.movies = movies;

@@ -41,12 +41,7 @@ export class MovieDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMovie()
-  //   this.mainService.movies$.subscribe(() => {
-  //     (data: any) => { this.getMovie() }
-  //     (error: any) => {                                  //tu nie dziala niestety
-  //         this.router.navigate(['/error404']);
-  //     }
-  // })
+  
   }
 
   getMovie(): void {
