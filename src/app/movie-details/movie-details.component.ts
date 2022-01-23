@@ -56,6 +56,7 @@ export class MovieDetailsComponent implements OnInit {
 
   onSubmit(): void {
     const movieId = String(this.route.snapshot.paramMap.get('id'))
+    let isnum = /^\d+$/.test(this.updateMovieForm.value.duration);
 
     if(!this.updateMovieForm.value.title){
       alert('Please add a title!');
@@ -71,6 +72,10 @@ export class MovieDetailsComponent implements OnInit {
     }
     if(!this.updateMovieForm.value.duration){
       alert('Please add a duration!');
+      return;
+    }
+    if(!isnum){
+      alert('Duration must be a number!');
       return;
     }
     else if(this.updateMovieForm.value.duration < 30){

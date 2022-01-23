@@ -45,6 +45,8 @@ export class MoviesComponent implements OnInit {
 
 	onSubmit(): void {
 
+		let isnum = /^\d+$/.test(this.addMovieForm.value.duration);
+
 		if(!this.addMovieForm.value.title){
 			alert('Please add a title!');
 			return;
@@ -60,15 +62,19 @@ export class MoviesComponent implements OnInit {
 		if(!this.addMovieForm.value.duration){
 			alert('Please add a duration!');
 			return;
-		  }
+		}
+		if(!isnum){
+			alert('Duration must be a number!');
+			return;
+		}
 		  else if(this.addMovieForm.value.duration < 30){
 			alert('Duration must be more than 30')
 			return;
-		  }
+		}
 		  else if(this.addMovieForm.value.duration > 300){
 			alert('Duration must be less than 300')
 			return;
-		  }
+		}
 		  if(!this.addMovieForm.value.description){
 			alert('Please add a description!');
 			return;
