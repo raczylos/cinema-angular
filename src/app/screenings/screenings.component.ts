@@ -134,9 +134,17 @@ export class ScreeningsComponent implements OnInit {
         this.popularity.length = 0
         this.popularityScreeningTitle.length = 0
         for (let screening of this.filteredScreenings) {
+
             if (screening.takenSeats) {
-                this.popularity.push(screening.takenSeats.length)
-                this.popularityScreeningTitle.push(screening.film.title + " " + screening.date.toLocaleDateString())
+                if(this.popularityScreeningTitle.find(x => x === screening.film.title) != undefined){ // jezeli znajdziemy ten sam film to += do jego popularnosci
+                    
+                    let idx = this.popularityScreeningTitle.findIndex(x => x === screening.film.title)
+                    this.popularity[idx] += screening.takenSeats.length
+                }
+                else{
+                    this.popularity.push(screening.takenSeats.length)
+                    this.popularityScreeningTitle.push(screening.film.title)
+                }
             }
             
             console.log(screening.takenSeats)

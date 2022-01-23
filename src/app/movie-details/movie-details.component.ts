@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MainService } from '../main.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -30,7 +31,8 @@ export class MovieDetailsComponent implements OnInit {
       private location: Location,
       private movieService: MovieService,
       private mainService: MainService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private router: Router
   ) { 
       mainService.updatedMovie$.subscribe(movie => {
           this.movie = movie
@@ -38,12 +40,19 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.getMovie()
+    this.getMovie()
+  //   this.mainService.movies$.subscribe(() => {
+  //     (data: any) => { this.getMovie() }
+  //     (error: any) => {                                  //tu nie dziala niestety
+  //         this.router.navigate(['/error404']);
+  //     }
+  // })
   }
 
   getMovie(): void {
     const movieId = String(this.route.snapshot.paramMap.get('id'))
     this.movie = this.mainService.getMovie(movieId)
+
   }
 
   onSubmit(): void {

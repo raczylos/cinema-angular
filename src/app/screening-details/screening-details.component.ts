@@ -7,12 +7,17 @@ import { room } from 'src/room';
 import { movie } from 'src/movie';
 import { FormBuilder } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'app-screening-details',
     templateUrl: './screening-details.component.html',
     styleUrls: ['./screening-details.component.css'],
 })
+
+
+
 export class ScreeningDetailsComponent implements OnInit {
     screening!: screening; // wczesniej bylo to screening: screening | undefined
     movies: movie[] = [];
@@ -20,9 +25,11 @@ export class ScreeningDetailsComponent implements OnInit {
     // choosenSeat: string[] = [];
 
     choosenSeat: string = ''
-    availableSeats: any = []
+    availableSeats: string[] = []
     // seatObject: Object = Object.create(null)
-    seatObject: any = {}
+
+    
+    seatObject: { [name: string]: string } = {}
     availableSeatsList(): void {
         // for(let i = 0; i < parseInt(this.screening.room.capacity) - this.screening.soldTickets; i++){
         //   console.log("ilosc miejsc wolnych = " + (parseInt(this.screening.room.capacity) - this.screening.soldTickets))
@@ -57,9 +64,12 @@ export class ScreeningDetailsComponent implements OnInit {
 
     constructor(
         private screeningService: ScreeningService,
+        private router: Router,
         private mainService: MainService,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder
+
+        
     ) {
         this.mainService.updatedScreening$.subscribe((screening) => {
             console.log(screening)
@@ -71,7 +81,10 @@ export class ScreeningDetailsComponent implements OnInit {
 
         this.getScreening();
         this.mainService.screenings$.subscribe(() => {
-            this.getScreening()
+            (data: any) => { this.getScreening() }
+            (error: any) => {
+                this.router.navigate(['/error404']);
+            }
         })
         this.mainService.movies$.subscribe((movies) => {
             this.movies = movies;
