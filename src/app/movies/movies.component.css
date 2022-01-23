@@ -1,9 +1,17 @@
 .movies-list {
     display: flex;
-    margin-right: 20%;
+    flex-direction: column;
 }
-.movie-item {
+.add-movie {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid black;
+}
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
 }

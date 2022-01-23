@@ -7,6 +7,7 @@ import { MainService } from '../main.service';
 import { movie } from 'src/movie';
 import { room } from 'src/room';
 import { FormControl } from '@angular/forms';
+
 import { PopularityService } from '../popularity.service';
 
 import { Chart, registerables } from 'chart.js';
@@ -36,6 +37,7 @@ export class ScreeningsComponent implements OnInit {
 
     selectedDate = new FormControl(new Date())
 
+    selectedTime = new FormControl('0:00')
     filteredScreenings: screening[] = [...this.screenings]
 
     selectedScreening: screening | undefined
@@ -54,7 +56,8 @@ export class ScreeningsComponent implements OnInit {
         room: '',
         soldTickets: 0,
         availableTickets: '',
-        takenSeats: ''
+        takenSeats: '',
+        
     })
 
     constructor(
@@ -176,6 +179,11 @@ export class ScreeningsComponent implements OnInit {
 
     filteredScreeningsList(): void {
         console.log(this.selectedDate.value)
+        let [selectedHours, selectedMinutes] = this.selectedTime.value.split(":")
+        selectedHours = parseInt(selectedHours, 10)
+        selectedMinutes = parseInt(selectedMinutes, 10)
+        this.selectedDate.value.setHours(selectedHours)
+        this.selectedDate.value.setMinutes(selectedMinutes)
         let newScreenings = this.screenings.filter(x => {
             let d = new Date(x.date.getTime())
             let [hours, minutes] = x.time.split(":")
@@ -225,11 +233,24 @@ export class ScreeningsComponent implements OnInit {
     // }
 
 
-
     onSubmit(): void {
-        // this.screeningService.addScreening(this.addScreeningForm.value).subscribe(screening => {
-        //     console.log(screening)
-        // })
+
+        let date = this.addScreeningForm.controls['date'].value
+        let [hours, minutes] = this.addScreeningForm.controls['time'].value.split(":")
+        hours = parseInt(hours, 10)
+        minutes = parseInt(minutes, 10)
+        date = date.split('-')
+        date = date.map((x: string) => parseInt(x))
+        date[1]--
+        date = new Date(date[0], date[1], date[2], hours, minutes)
+
+        let currentDate = new Date();
+
+        if(date < currentDate) {
+            alert('Choose a valid date');
+            return;
+        }
+
         this.mainService.addScreening(this.addScreeningForm.value)
     }
 

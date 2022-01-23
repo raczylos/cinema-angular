@@ -1,5 +1,4 @@
 <div class="movies-list">
-    <mat-list>
         <app-movie-item 
         *ngFor="let movie of movies"
         [movie]="movie"
@@ -11,16 +10,15 @@
                 <fa-icon  (click)="onDelete(movie)" [ngStyle]="{'color': 'red'}" [icon] = "faTimes"></fa-icon> 
             </div>
         </mat-list-item> -->
-    </mat-list>
     
 </div>
-<div>
+<div class="add-movie">
     <h1>Add a new movie!</h1>
     <form [formGroup]="addMovieForm" (ngSubmit)="onSubmit()">
         <div>
             <mat-form-field>
                 <mat-label>Title</mat-label>
-                <input matInput formControlName="title">
+                <input matInput type="text"  name="title" id="title" formControlName="title">
             </mat-form-field>
         </div>
         <div>

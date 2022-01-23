@@ -92,6 +92,17 @@ export class ScreeningDetailsComponent implements OnInit {
             this.rooms = rooms;
         });
         this.availableSeatsList()
+
+        this.updateScreeningForm.setValue({
+            id: '',
+            film: this.screening.film.id,
+            date: '',
+            time: '',
+            room: this.screening.room.nr,
+            soldTickets: 0,
+            availableTickets: '',
+            takenSeats: [],
+        })
     }
 
     getScreening(): void {

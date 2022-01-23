@@ -1,5 +1,4 @@
-<h1>screenings list</h1>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <div class="screenings-list">
     <mat-card class="screening-item" *ngFor="let screening of filteredScreenings" (click)="navigate(screening)">
         <mat-card-content>
@@ -13,14 +12,59 @@
 </div>
 
 <div class="screening-filter">
-    <h1>SELECT DATE TO FILTER SCREENINGS</h1>
+    <h1>Screenings filter</h1>
     <mat-form-field appearance="fill">
         <mat-label>Choose a date</mat-label>
         <input matInput [matDatepicker]="picker" [formControl]="selectedDate" (dateChange)="filteredScreeningsList()" >
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <mat-form-field appearance="fill">
+        <input matInput type="time" [formControl]="selectedTime" (change)="filteredScreeningsList()">
+    </mat-form-field>
 </div>
+<div class="add-screening">
+    <h1>Add screening</h1>
+    <form [formGroup]="addScreeningForm" (ngSubmit)="onSubmit()">
+        <div>
+            <mat-form-field>
+                <mat-label>Select film</mat-label>
+                <mat-select  formControlName="film" >
+                    <mat-option *ngFor="let movie of movies" [value]="movie.id">
+                        {{movie.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Select room</mat-label>
+                <mat-select  formControlName="room" >
+                    <mat-option *ngFor="let room of rooms" [value]="room.nr">
+                        {{room.nr}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Select date</mat-label>
+                <input type="date" name="date" id="date"  matInput formControlName="date">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Select time</mat-label>
+                <input type="time"  name="time" id="time" matInput formControlName="time">
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button>Submit</button>
+        </div>
+        
+    </form>
+</div>
+
 
 
 
@@ -69,9 +113,11 @@
         
     </form>
 
+
     
 </div>
 
-
-
 <router-outlet></router-outlet>
+
+</div> 
+

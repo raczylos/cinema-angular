@@ -1,0 +1,18 @@
+a {
+    color: white;
+    text-decoration: none; /* no underline */
+}
+
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+.edit-movie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid black;
+}
