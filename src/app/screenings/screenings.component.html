@@ -29,7 +29,7 @@
         <div>
             <mat-form-field>
                 <mat-label>Select film</mat-label>
-                <mat-select  formControlName="film" >
+                <mat-select  formControlName="film" ng-model="film" required >
                     <mat-option *ngFor="let movie of movies" [value]="movie.id">
                         {{movie.title}}
                     </mat-option>
@@ -39,7 +39,7 @@
         <div>
             <mat-form-field>
                 <mat-label>Select room</mat-label>
-                <mat-select  formControlName="room" >
+                <mat-select  formControlName="room" ng-model="room" required >
                     <mat-option *ngFor="let room of rooms" [value]="room.nr">
                         {{room.nr}}
                     </mat-option>
@@ -68,9 +68,7 @@
 
 
 
-<div id="divChart">
-    <canvas id="chart"> </canvas>
-</div>
+
 
 <router-outlet></router-outlet>
 

@@ -54,7 +54,6 @@ export class MainComponent implements OnInit {
 
     addMovie(): void {
         this.mainService.addedMovie$.subscribe(movie => {
-            console.log("adding movie")
             this.movieService.addMovie(movie).subscribe()
         })
     }
@@ -67,7 +66,7 @@ export class MainComponent implements OnInit {
 
     addScreening(): void {
         this.mainService.addedScreening$.subscribe(screening => {
-            console.log("dodaje screening" + screening)
+            
             this.screeningService.addScreening(screening).subscribe(() => {
                 this.getScreenings()
             })

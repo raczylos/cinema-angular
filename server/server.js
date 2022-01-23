@@ -237,12 +237,17 @@ app.post('/screenings', (req, res) => {
     screening.id = randId
 
     let date = screening.date
-
+    if(!date){
+        return ;
+    }
     date = date.split('-').map(Number)
 
     date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)
 
     let room = screening.room
+    if(!room){
+        return ;
+    }
     screening.date = date
 
     let roomObject = roomsJson.find(x => x.nr === room)
@@ -273,6 +278,18 @@ app.put('/screenings/:id', (req, res) => {
     let screeningsJson = JSON.parse(fs.readFileSync('./screenings.json'))['screenings']
     let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
     let date = screening.date
+
+    let time = screening.time
+    
+    if(!date){
+        
+        return ;
+    }
+
+    if(!time){
+
+        return ;
+    }
 
     date = date.split('-').map(Number)
 

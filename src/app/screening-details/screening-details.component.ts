@@ -8,7 +8,9 @@ import { movie } from 'src/movie';
 import { FormBuilder } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Chart, registerables } from 'chart.js';
 
+Chart.register(...registerables);
 
 @Component({
     selector: 'app-screening-details',
@@ -19,6 +21,7 @@ import { Router } from '@angular/router';
 
 
 export class ScreeningDetailsComponent implements OnInit {
+ 
     screening!: screening; // wczesniej bylo to screening: screening | undefined
     movies: movie[] = [];
     rooms: room[] = [];
@@ -30,6 +33,9 @@ export class ScreeningDetailsComponent implements OnInit {
 
     
     seatObject: { [key: string]: string } = {}
+
+
+
     availableSeatsList(): void {
         // for(let i = 0; i < parseInt(this.screening.room.capacity) - this.screening.soldTickets; i++){
         //   console.log("ilosc miejsc wolnych = " + (parseInt(this.screening.room.capacity) - this.screening.soldTickets))
@@ -67,7 +73,8 @@ export class ScreeningDetailsComponent implements OnInit {
         private router: Router,
         private mainService: MainService,
         private route: ActivatedRoute,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        
 
         
     ) {
@@ -75,10 +82,13 @@ export class ScreeningDetailsComponent implements OnInit {
             console.log(screening)
             this.getScreening()
         });
+
     }
 
-    ngOnInit(): void {
+    
 
+    ngOnInit(): void {
+       
         this.getScreening();
         this.mainService.screenings$.subscribe(() => {
              this.getScreening() 
@@ -91,6 +101,8 @@ export class ScreeningDetailsComponent implements OnInit {
         this.mainService.rooms$.subscribe((rooms) => {
             this.rooms = rooms;
         });
+
+
         this.availableSeatsList()
 
         this.updateScreeningForm.setValue({
@@ -119,6 +131,35 @@ export class ScreeningDetailsComponent implements OnInit {
 
     onSubmit(): void {
         const screeningId = String(this.route.snapshot.paramMap.get('id'))
+
+        let date = this.updateScreeningForm.controls['date'].value
+        if(!date){
+            
+            alert("date is empty")
+            return ;
+        }
+        let [hours, minutes] = this.updateScreeningForm.controls['time'].value.split(":")
+        if(!hours){
+            alert("time is empty")
+            return ;
+        }
+
+        
+        hours = parseInt(hours, 10)
+        minutes = parseInt(minutes, 10)
+        date = date.split('-')
+        date = date.map((x: string) => parseInt(x))
+        date[1]--
+        date = new Date(date[0], date[1], date[2], hours, minutes)
+
+        let currentDate = new Date();
+
+        if(date < currentDate) {
+            alert('Choose a valid date');
+            return;
+        }
+
+
 
         this.mainService.updateScreening(
             this.updateScreeningForm.value,
