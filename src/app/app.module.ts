@@ -26,6 +26,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { DatePipe } from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 
 
 
@@ -39,6 +41,7 @@ import {MatNativeDateModule} from '@angular/material/core';
         MovieDetailsComponent,
         MovieItemComponent,
         ScreeningDetailsComponent,
+        PageNotFoundComponent,
     ],
     imports: [
         BrowserModule,
