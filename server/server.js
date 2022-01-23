@@ -274,6 +274,16 @@ app.put('/screenings/:id', (req, res) => {
     let roomsJson = JSON.parse(fs.readFileSync('./rooms.json'))['rooms']
     let date = screening.date
 
+    let time = screening.time
+
+    if(!date){
+        return ;
+    }
+
+    if(!time){
+        return ;
+    }
+
     date = date.split('-').map(Number)
 
     date[1]-- //format Daty w miesiącu to indeks miesiąca (styczen zaczyna sie od 0)

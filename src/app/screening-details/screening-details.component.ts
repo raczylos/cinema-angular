@@ -120,6 +120,32 @@ export class ScreeningDetailsComponent implements OnInit {
     onSubmit(): void {
         const screeningId = String(this.route.snapshot.paramMap.get('id'))
 
+        let date = this.updateScreeningForm.controls['date'].value
+        if(!date){
+            
+            alert("date is empty")
+            return ;
+        }
+        let [hours, minutes] = this.updateScreeningForm.controls['time'].value.split(":")
+        if(!hours){
+            alert("time is empty")
+            return ;
+        }
+        hours = parseInt(hours, 10)
+        minutes = parseInt(minutes, 10)
+        date = date.split('-')
+        date = date.map((x: string) => parseInt(x))
+        date[1]--
+        date = new Date(date[0], date[1], date[2], hours, minutes)
+
+        let currentDate = new Date();
+
+        if(date < currentDate) {
+            alert('Choose a valid date');
+            return;
+        }
+
+
         this.mainService.updateScreening(
             this.updateScreeningForm.value,
             screeningId
