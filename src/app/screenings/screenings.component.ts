@@ -7,6 +7,7 @@ import { MainService } from '../main.service';
 import { movie } from 'src/movie';
 import { room } from 'src/room';
 import { FormControl } from '@angular/forms';
+import { PopularityService } from '../popularity.service';
 
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
@@ -24,15 +25,24 @@ export class ScreeningsComponent implements OnInit {
     screenings: screening[] = []
     movies: movie[] = []
     rooms: room[] = []
+  
+
+    allPopularity: { popularity: number[], popularityScreeningTitle: string[] } = {
+        popularity: [],
+        popularityScreeningTitle: []
+      }
+       
+      
 
     selectedDate = new FormControl(new Date())
+
     filteredScreenings: screening[] = [...this.screenings]
 
     selectedScreening: screening | undefined
     // selectedScreening!: string
 
-    popularity: number[] = []
-    popularityScreeningTitle: string[] = []
+    // popularity: number[] = []
+    // popularityScreeningTitle: string[] = []
 
     chart!: Chart
 
@@ -51,7 +61,9 @@ export class ScreeningsComponent implements OnInit {
         private screeningService: ScreeningService,
         private mainService: MainService,
         private router: Router,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private popularityService: PopularityService 
+        
     ) {
         this.mainService.screenings$.subscribe(screenings => {
             console.log(screenings)
@@ -74,17 +86,21 @@ export class ScreeningsComponent implements OnInit {
         })
     }
 
+    getPopularity(): void {
+        this.allPopularity = this.popularityService.getPopularity(this.filteredScreenings);
+      }
+
 
     displayChart(): void {
         this.chart = new Chart("chart", {
             type: 'bar',
             data: {
                 // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                labels: this.popularityScreeningTitle,
+                labels: this.allPopularity.popularityScreeningTitle,
                 datasets: [{
                     label: 'popularity chart',
                     // data: [12, 19, 3, 5, 2, 3],
-                    data: this.popularity,
+                    data: this.allPopularity.popularity,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -120,8 +136,8 @@ export class ScreeningsComponent implements OnInit {
         
         if(this.chart !== undefined){
             console.log("moge wejsc")
-            this.chart.data.datasets[0].data = this.popularity
-            this.chart.data.labels = this.popularityScreeningTitle
+            this.chart.data.datasets[0].data = this.allPopularity.popularity
+            this.chart.data.labels = this.allPopularity.popularityScreeningTitle
             this.chart.update();
         }
         
@@ -129,32 +145,32 @@ export class ScreeningsComponent implements OnInit {
     }
 
 
+                                    //NIZEJ STARE POPULARITY BEZ KORZYSTANIA Z SERWISU SYNCHRONICZNEGO
+    // getPopularity(): void {
+    //     this.popularity.length = 0
+    //     this.popularityScreeningTitle.length = 0
+    //     for (let screening of this.filteredScreenings) {
 
-    getPopularity(): void {
-        this.popularity.length = 0
-        this.popularityScreeningTitle.length = 0
-        for (let screening of this.filteredScreenings) {
-
-            if (screening.takenSeats) {
-                if(this.popularityScreeningTitle.find(x => x === screening.film.title) != undefined){ // jezeli znajdziemy ten sam film to += do jego popularnosci
+    //         if (screening.takenSeats) {
+    //             if(this.popularityScreeningTitle.find(x => x === screening.film.title) != undefined){ // jezeli znajdziemy ten sam film to += do jego popularnosci
                     
-                    let idx = this.popularityScreeningTitle.findIndex(x => x === screening.film.title)
-                    this.popularity[idx] += screening.takenSeats.length
-                }
-                else{
-                    this.popularity.push(screening.takenSeats.length)
-                    this.popularityScreeningTitle.push(screening.film.title)
-                }
-            }
+    //                 let idx = this.popularityScreeningTitle.findIndex(x => x === screening.film.title)
+    //                 this.popularity[idx] += screening.takenSeats.length
+    //             }
+    //             else{
+    //                 this.popularity.push(screening.takenSeats.length)
+    //                 this.popularityScreeningTitle.push(screening.film.title)
+    //             }
+    //         }
             
-            console.log(screening.takenSeats)
+    //         console.log(screening.takenSeats)
             
-            console.log(this.popularity)
+    //         console.log(this.popularity)
             
-            console.log(this.popularityScreeningTitle)
-        }
+    //         console.log(this.popularityScreeningTitle)
+    //     }
         
-    }
+    // }
 
 
 
@@ -187,8 +203,10 @@ export class ScreeningsComponent implements OnInit {
             
 
         })
-        this.getPopularity()
+        // this.getPopularity()
         this.displayChart()
+        this.getPopularity()
+        
 
        
     }
